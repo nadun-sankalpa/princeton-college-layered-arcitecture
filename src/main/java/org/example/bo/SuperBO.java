@@ -1,4 +1,4 @@
 package org.example.bo;
 
-public class ff {
+public interface SuperBO {
 }
