@@ -13,5 +13,19 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class RegistrationFormController {
+    @FXML
+    private TextField txtAddress;
+
+    @FXML
+    private TextField txtCno;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtPw;
+
+    @FXML
+    private TextField txtUserId;
 
 }

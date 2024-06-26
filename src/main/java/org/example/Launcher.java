@@ -2,23 +2,23 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
-    public static void main(String[] args) {
-    launch(args);
-}
-
     @Override
-    public void start(Stage stage) throws Exception {
-        stage
-                .setScene(new Scene(FXMLLoader
-                        .load(this.getClass()
-                                .getResource("/view/login_form.fxml"))));
+    public void start(Stage primaryStage) throws Exception {
+        // Replace "path/to/your.fxml" with the correct path to your FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/your.fxml"));
+        Parent root = loader.load();
 
-        stage.setTitle("Login Form");
-        stage.centerOnScreen();
-        stage.show();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
