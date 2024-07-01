@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -12,10 +11,6 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class DashboardFormController {
@@ -45,7 +40,7 @@ public class DashboardFormController {
 
     @FXML
     void btnAttendanceOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/attendance_form.fxml")));
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/attendance_form.fxml")));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -56,7 +51,7 @@ public class DashboardFormController {
 
     @FXML
     void btnBatchesOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Batch_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/Batch_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -67,7 +62,7 @@ public class DashboardFormController {
 
     @FXML
     void btnCoursesOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/courses_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/courses_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -78,7 +73,7 @@ public class DashboardFormController {
 
     @FXML
     void btnEmployesOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/employes_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/employes_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -89,7 +84,7 @@ public class DashboardFormController {
 
     @FXML
     void btnExamsOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/exams_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/exams_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -100,7 +95,7 @@ public class DashboardFormController {
 
     @FXML
     void btnLecturersOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/lecturer_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/lecturer_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -111,7 +106,7 @@ public class DashboardFormController {
 
     @FXML
     void btnLogOutOnAction(ActionEvent event) throws IOException {
-        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/view/login_form.fxml"));
+        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/org/example/login_form.fxml"));
 
         Scene scene = new Scene(rootNode);
 
@@ -123,7 +118,7 @@ public class DashboardFormController {
 
     @FXML
     void btnPaymentOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/payment_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/payment_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -134,7 +129,7 @@ public class DashboardFormController {
 
     @FXML
     void btnScheduleOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/schedule_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/schedule_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -145,7 +140,7 @@ public class DashboardFormController {
 
     @FXML
     void btnStudentsOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/student_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/student_form.fxml"));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));

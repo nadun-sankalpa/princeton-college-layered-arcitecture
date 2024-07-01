@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import lk.ijse.princetoncollege.db.DbConnection;
+import org.example.db.DbConnection;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -68,7 +68,7 @@ public class LoginFormController {
         }
     }
     private void navigateToTheDashboard() throws IOException {
-        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
+        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/org/example/dashboard_form.fxml"));
 
         Scene scene = new Scene(rootNode);
 
@@ -79,7 +79,7 @@ public class LoginFormController {
         stage.show();
     }
     public void linkRegistrationOnAction(ActionEvent actionEvent) throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/registration_form.fxml"));
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/org/example/registration_form.fxml"));
 
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
