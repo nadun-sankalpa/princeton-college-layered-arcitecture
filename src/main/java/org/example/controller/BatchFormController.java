@@ -2,10 +2,16 @@ package org.example.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class BatchFormController {
 
@@ -45,7 +51,13 @@ public class BatchFormController {
     }
 
     @FXML
-    void btnAttendanceOnAction(ActionEvent event) {
+    void btnAttendanceOnAction(ActionEvent event) throws IOException {
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/attendance_form.fxml")));
+        Stage stage = (Stage) rootNode.getScene().getWindow();
+
+        stage.setScene(new Scene(anchorPane));
+        stage.setTitle("Attendance Form");
+        stage.centerOnScreen();
 
     }
 

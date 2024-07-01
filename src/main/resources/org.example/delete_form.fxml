@@ -25,7 +25,7 @@
             </JFXButton>
             <ImageView fitHeight="28.0" fitWidth="23.0" layoutX="153.0" layoutY="218.0">
                <image>
-                  <Image url="@../images/icons8-delete-48.png" />
+                  <Image url="@../org.example/assests/images/icons8-delete-48.png" />
                </image>
             </ImageView>
          </children>

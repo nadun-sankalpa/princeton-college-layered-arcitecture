@@ -79,7 +79,7 @@
                                  <graphic>
                                     <ImageView fitHeight="23.0" fitWidth="22.0">
                                        <image>
-                                          <Image url="@../images/icons8-back-30.png" />
+                                          <Image url="@../org.example/assests/images/icons8-back-30.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

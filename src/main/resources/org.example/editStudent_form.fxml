@@ -34,7 +34,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="22.0">
                                  <image>
-                                    <Image url="@../images/icons8-back-30.png" />
+                                    <Image url="@../org.example/assests/images/icons8-back-30.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -78,7 +78,7 @@
                         <Circle fill="#00dbeb" layoutX="317.0" layoutY="105.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
                         <ImageView fitHeight="107.0" fitWidth="121.0" layoutX="257.0" layoutY="52.0">
                            <image>
-                              <Image url="@../images/icons8-user-50.png" />
+                              <Image url="@../org.example/assests/images/icons8-user-50.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="248.0" layoutY="-15.0" prefHeight="58.0" prefWidth="140.0" text="Edit Student" textFill="#f80000">

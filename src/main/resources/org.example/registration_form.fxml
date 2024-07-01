@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="673.0" prefWidth="1104.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.princetoncollege.controller.RegistrationFormController">
+<AnchorPane prefHeight="673.0" prefWidth="1104.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.RegistrationFormController">
    <children>
       <AnchorPane layoutX="20.0" layoutY="18.0" opacity="0.17" prefHeight="641.0" prefWidth="550.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" />
       <AnchorPane layoutX="585.0" layoutY="-4.0" prefHeight="681.0" prefWidth="528.0" style="-fx-background-color: #000428;">
@@ -54,7 +54,7 @@
             </Rectangle>
             <ImageView fitHeight="300.0" fitWidth="491.0" layoutX="19.0" layoutY="94.0">
                <image>
-                  <Image url="@../images/Princeton-Symbol.png" />
+                  <Image url="@../org.example/assests/images/Princeton-Symbol.png" />
                </image>
             </ImageView>
             <Text fill="WHITE" layoutX="99.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRINCETON " textAlignment="CENTER" wrappingWidth="343.0">

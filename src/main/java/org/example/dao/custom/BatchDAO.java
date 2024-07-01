@@ -1,4 +1,7 @@
 package org.example.dao.custom;
 
-public class BatchDAO {
+import org.example.dao.CrudDAO;
+import org.example.entity.Batch;
+
+public interface BatchDAO extends CrudDAO<Batch> {
 }

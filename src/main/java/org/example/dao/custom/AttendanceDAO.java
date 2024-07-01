@@ -1,4 +1,7 @@
 package org.example.dao.custom;
 
-public class AttendanceDAO {
+import org.example.dao.CrudDAO;
+import org.example.entity.Attendance;
+
+public interface AttendanceDAO extends CrudDAO<Attendance> {
 }

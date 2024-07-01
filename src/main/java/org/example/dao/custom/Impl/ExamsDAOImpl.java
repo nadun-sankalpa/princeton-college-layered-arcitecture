@@ -1,4 +1,40 @@
 package org.example.dao.custom.Impl;
 
-public class ExamsDAOImpl {
+import org.example.dao.SQLUtil;
+import org.example.dao.custom.ExamsDAO;
+import org.example.entity.Exams;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class ExamsDAOImpl implements ExamsDAO {
+    public ArrayList<Exams> getAll() throws SQLException, ClassNotFoundException {
+        ArrayList<Exams> allExams = new ArrayList<>();
+        ResultSet rst = SQLUtil.execute("SELECT * FROM exam");
+
+
+            while (rst.next()) {
+                Exams exam = new Exams(rst.getString("exam_id"), rst.getString("exam_name"), rst.getString("date"), rst.getString("time"), rst.getString("lecturer_id"));
+                allExams.add(exam);
+            }
+        return allExams;
+    }
+
+    public boolean add(Exams entity) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("INSERT INTO exam VALUES(?,?,?,?,?)", entity.getExamID(), entity.getExamName(), entity.getDate(), entity.getTime(), entity.getLectureID());
+    }
+
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("DELETE FROM exam WHERE exam_id = ?", id);
+    }
+    public boolean update(Exams entity) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE exam SET exam_name = ?, date = ?, time = ?, lecturer_id = ?  WHERE exam_id = ?", entity.getExamName(), entity.getDate(), entity.getTime(), entity.getLectureID(), entity.getExamID());
+    }
+
+    @Override
+    public boolean generateNewID() throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
 }

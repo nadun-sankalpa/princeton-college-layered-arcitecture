@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.princetoncollege.controller.AttendanceFormController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.AttendanceFormController">
    <children>
       <AnchorPane fx:id="rootNode" prefHeight="822.0" prefWidth="1242.0">
          <children>
@@ -62,7 +62,7 @@
                               </Label>
                               <ImageView fitHeight="50.0" fitWidth="77.0" layoutX="718.0" layoutY="11.0">
                                  <image>
-                                    <Image url="@../images/Princeton-Symbol.png" />
+                                    <Image url="@../org.example/assests/images/Princeton-Symbol.png" />
                                  </image>
                               </ImageView>
                               <Text fill="WHITE" layoutX="771.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRINCETON " textAlignment="CENTER" wrappingWidth="167.0">
@@ -94,22 +94,22 @@
                         </JFXButton>
                         <ImageView layoutX="333.0" layoutY="119.0">
                            <image>
-                              <Image url="@../images/icons8-back-24.png" />
+                              <Image url="@../org.example/assests/images/icons8-back-24.png" />
                            </image>
                         </ImageView>
                         <ImageView layoutX="489.0" layoutY="119.0">
                            <image>
-                              <Image url="@../images/icons8-add-24.png" />
+                              <Image url="@../org.example/assests/images/icons8-add-24.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="28.0" fitWidth="23.0" layoutX="702.0" layoutY="117.0">
                            <image>
-                              <Image url="@../images/icons8-delete-48.png" />
+                              <Image url="@../org.example/assests/images/icons8-delete-48.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="918.0" layoutY="117.0">
                            <image>
-                              <Image url="@../images/icons8-edit-64.png" />
+                              <Image url="@../org.example/assests/images/icons8-edit-64.png" />
                            </image>
                         </ImageView>
                      </children></AnchorPane>
@@ -192,7 +192,7 @@
             <Circle fill="#e0e6eb" layoutX="67.0" layoutY="69.0" opacity="0.61" radius="46.0" stroke="#140f0f" strokeType="INSIDE" />
             <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="29.0" layoutY="31.0">
                <image>
-                  <Image url="@../images/icons8-user-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-user-50.png" />
                </image>
             </ImageView>
             <Text fill="WHITE" layoutX="142.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" wrappingWidth="111.0">
@@ -217,52 +217,52 @@
             </JFXButton>
             <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="60.0" layoutY="256.0">
                <image>
-                  <Image url="@../images/icons8-student-80.png" />
+                  <Image url="@../org.example/assests/images/icons8-student-80.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="63.0" layoutY="322.0">
                <image>
-                  <Image url="@../images/icons8-lecturer-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-lecturer-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="62.0" layoutY="499.0">
                <image>
-                  <Image url="@../images/icons8-multiple-users-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-multiple-users-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="36.0" layoutX="60.0" layoutY="675.0">
                <image>
-                  <Image url="@../images/icons8-employee-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-employee-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="65.0" layoutY="201.0">
                <image>
-                  <Image url="@../images/icons8-check-book-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-check-book-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="65.0" layoutY="381.0">
                <image>
-                  <Image url="@../images/icons8-schedule-64.png" />
+                  <Image url="@../org.example/assests/images/icons8-schedule-64.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="440.0">
                <image>
-                  <Image url="@../images/icons8-exams-for-commerce-and-economics-students-24.png" />
+                  <Image url="@../org.example/assests/images/icons8-exams-for-commerce-and-economics-students-24.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="33.0" fitWidth="35.0" layoutX="59.0" layoutY="557.0">
                <image>
-                  <Image url="@../images/icons8-payment-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-payment-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="64.0" layoutY="618.0">
                <image>
-                  <Image url="@../images/icons8-courses-64.png" />
+                  <Image url="@../org.example/assests/images/icons8-courses-64.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="29.0" layoutX="77.0" layoutY="754.0">
                <image>
-                  <Image url="@../images/icons8-log-out-50.png" />
+                  <Image url="@../org.example/assests/images/icons8-log-out-50.png" />
                </image>
             </ImageView>
          </children>

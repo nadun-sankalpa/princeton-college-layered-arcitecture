@@ -1,4 +1,7 @@
 package org.example.dao.custom;
 
-public class ScheduleDAO {
+import org.example.dao.CrudDAO;
+import org.example.entity.Schedule;
+
+public interface ScheduleDAO extends CrudDAO<Schedule> {
 }

@@ -32,7 +32,7 @@
                         <Circle fill="#dfeb00" layoutX="341.0" layoutY="167.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
                         <ImageView fitHeight="107.0" fitWidth="121.0" layoutX="275.0" layoutY="109.0">
                            <image>
-                              <Image url="@../images/icons8-user-50.png" />
+                              <Image url="@../org.example/assests/images/icons8-user-50.png" />
                            </image>
                         </ImageView>
                         <TextField fx:id="txtCourseId" layoutX="163.0" layoutY="277.0" opacity="0.75" prefHeight="35.0" prefWidth="385.0" style="-fx-background-color: C0C0C0;" text="Course Id" />
@@ -68,7 +68,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="22.0">
                                  <image>
-                                    <Image url="@../images/icons8-back-30.png" />
+                                    <Image url="@../org.example/assests/images/icons8-back-30.png" />
                                  </image>
                               </ImageView>
                            </graphic>
