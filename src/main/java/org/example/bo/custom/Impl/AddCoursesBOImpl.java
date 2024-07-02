@@ -1,4 +1,4 @@
 package org.example.bo.custom.Impl;
 
-public class ExamsBOImpl {
+public class AddCoursesBOImpl {
 }

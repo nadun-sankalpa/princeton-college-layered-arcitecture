@@ -1,4 +1,4 @@
 package org.example.bo.custom;
 
-public class ExamsBO {
+public interface AddEmployeeBO {
 }
