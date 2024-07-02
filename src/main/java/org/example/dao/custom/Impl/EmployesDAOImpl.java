@@ -26,7 +26,7 @@ public class EmployesDAOImpl implements EmployesDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM employee WHERE employee_id = ?", id);
     }
-    public  boolean update(Employes entity) throws SQLException, ClassNotFoundException {
+    public boolean update(Employes entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE employee SET name = ?,contact_no = ?,address = ?,nic_no = ?  WHERE employee_id = ?", entity.getName(), entity.getContactNo(), entity.getAddress(), entity.getNicNo(), entity.getEmployeeID());
     }
 

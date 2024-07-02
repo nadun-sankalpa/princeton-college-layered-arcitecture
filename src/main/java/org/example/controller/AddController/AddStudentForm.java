@@ -144,7 +144,7 @@ public class AddStudentForm {
     }
 
         @FXML
-        void btnAddOnAction (ActionEvent event) throws SQLException {
+        void btnAddOnAction (ActionEvent event) throws SQLException, ClassNotFoundException {
             String student_id = txtStudentId.getText();
             String name = txtName.getText();
             String address = txtAddress.getText();
