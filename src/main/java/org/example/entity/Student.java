@@ -9,7 +9,7 @@ public class Student {
     private String nicNo;
     private String userID;
 
-    public Student() {
+    public Student(String studentId, String studentName, String contactNo, String nicNumber, String address) {
     }
 
     public Student(String studentID, String name, String contactNo, String address, String nicNo, String userID) {

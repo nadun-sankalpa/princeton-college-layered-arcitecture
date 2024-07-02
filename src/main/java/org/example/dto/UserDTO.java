@@ -7,10 +7,10 @@ import  java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RegistrationDTO implements Serializable {
-    private String registrationId;
-    private String registrationDate;
+public class UserDTO implements Serializable {
     private String userId;
-    private String courseId;
-    private String batchId;
+    private String userName;
+    private String contactNumber;
+    private String password;
+    private String address;
 }

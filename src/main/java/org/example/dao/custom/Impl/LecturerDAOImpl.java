@@ -28,7 +28,7 @@ public class LecturerDAOImpl implements LecturerDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM lecturer WHERE lecturer_id = ?", id);
     }
-    public boolean update(Lecturer entity) throws SQLException, ClassNotFoundException {
+    public static boolean update(Lecturer entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE lecturer SET name = ?,contact_no = ?,address = ?,nic_no = ?  WHERE lecturer_id = ?", entity.getName(), entity.getContactNo(), entity.getAddress(), entity.getNicNo(), entity.getLecturerID());
     }
 

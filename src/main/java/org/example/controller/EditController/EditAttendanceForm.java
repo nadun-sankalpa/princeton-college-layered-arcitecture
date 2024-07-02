@@ -1,8 +1,19 @@
 package org.example.controller.EditController;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.example.dao.custom.Impl.AttendanceDAOImpl;
+import org.example.entity.Attendance;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Objects;
 
 public class EditAttendanceForm {
     @FXML
@@ -25,5 +36,39 @@ public class EditAttendanceForm {
 
     @FXML
     private TextField txtUserId;
+    @FXML
+    void btnEditOnAction(ActionEvent event) {
+        String attendance_id = txtAttendanceId.getText();
+        String student_name = txtStudentName.getText();
+        String date = txtDate.getText();
+        String in_time = txtInTime.getText();
+        String out_time = txtOutTime.getText();
+        String user_id = txtUserId.getText();
+
+        Attendance attendance = new Attendance(attendance_id,student_name,date,in_time,out_time,user_id);
+
+        try {
+            boolean isUpdated = AttendanceDAOImpl.update(attendance);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Attendance updated!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @FXML
+    void btnExitOnAction(ActionEvent event) throws IOException {
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/attendance_form.fxml")));
+        Stage stage = (Stage) rootNode.getScene().getWindow();
+
+        stage.setScene(new Scene(anchorPane));
+        stage.setTitle("Attendance Form");
+        stage.centerOnScreen();
+
+    }
 
 }

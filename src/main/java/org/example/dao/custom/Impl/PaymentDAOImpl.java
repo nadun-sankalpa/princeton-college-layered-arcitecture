@@ -27,6 +27,9 @@ public class PaymentDAOImpl implements PaymentDAO {
         return pstm.executeUpdate() > 0;
     }
 
+    public static String getnextPaymentId() {
+    }
+
     public ArrayList<Payment> getAll() throws SQLException, ClassNotFoundException {
         ArrayList<Payment> allPayments = new ArrayList<>();
         ResultSet rst = SQLUtil.execute("SELECT * FROM payment");
@@ -46,7 +49,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM payment WHERE payment_id = ?", id);
     }
-    public boolean update(Payment entity) throws SQLException, ClassNotFoundException {
+    public static boolean update(Payment entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE payment SET amount = ?, date = ?, student_id = ?,user_id = ?, course_id = ?  WHERE payment_id = ?", entity.getAmount(), entity.getDate(), entity.getStudentID(), entity.getUserID(), entity.getCourseID(), entity.getPaymentID());
     }
 

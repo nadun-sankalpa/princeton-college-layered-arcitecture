@@ -4,4 +4,5 @@ import org.example.dao.CrudDAO;
 import org.example.entity.Payment;
 
 public interface PaymentDAO extends CrudDAO<Payment> {
+    boolean savePayment(Payment payment);
 }

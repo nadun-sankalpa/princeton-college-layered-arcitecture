@@ -10,8 +10,9 @@ import  java.io.Serializable;
 
 public class PaymentDTO  implements Serializable {
     private String paymentId;
-    private String paymentDate;
-    private String paymentAmount;
-    private String paymentMethod;
+    private String Date;
+    private String Amount;
+    private String studentId;
     private String userId;
+    private String courseID;
 }
