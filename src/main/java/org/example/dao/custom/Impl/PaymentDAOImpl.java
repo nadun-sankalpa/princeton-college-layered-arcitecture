@@ -3,13 +3,30 @@ package org.example.dao.custom.Impl;
 import javafx.scene.chart.XYChart;
 import org.example.dao.SQLUtil;
 import org.example.dao.custom.PaymentDAO;
+import org.example.db.DbConnection;
 import org.example.entity.Payment;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaymentDAOImpl implements PaymentDAO {
+    public static boolean savePayment(Payment payment) throws SQLException {
+        String sql = "INSERT INTO payment (payment_id, amount, date, student_id, user_id, course_id) VALUES (?, ?, ?, ?, ?, ?)";
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement checkStmt = connection.prepareStatement(sql);
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1, payment.getPaymentID());
+        pstm.setString(2, payment.getAmount());
+        pstm.setString(3, payment.getDate());
+        pstm.setString(4, payment.getStudentID());
+        pstm.setString(5, payment.getUserID());
+        pstm.setString(6, payment.getCourseID());
+        return pstm.executeUpdate() > 0;
+    }
+
     public ArrayList<Payment> getAll() throws SQLException, ClassNotFoundException {
         ArrayList<Payment> allPayments = new ArrayList<>();
         ResultSet rst = SQLUtil.execute("SELECT * FROM payment");

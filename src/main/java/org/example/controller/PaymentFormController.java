@@ -43,6 +43,7 @@ public class PaymentFormController {
     @FXML
     private TableView<?> tblPayment;
 
+
     @FXML
     void btnAddPaymentOnAction(ActionEvent event) throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/addPayment_form.fxml"));

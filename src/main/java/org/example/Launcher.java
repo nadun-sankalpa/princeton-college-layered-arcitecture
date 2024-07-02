@@ -9,8 +9,7 @@ import javafx.stage.Stage;
 public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Replace "path/to/your.fxml" with the correct path to your FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/login_form.fxmll"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/login_form.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
@@ -22,3 +21,4 @@ public class Launcher extends Application {
         launch(args);
     }
 }
+
