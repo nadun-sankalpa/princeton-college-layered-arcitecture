@@ -25,7 +25,7 @@ public class BatchDAOImpl implements BatchDAO {
         return SQLUtil.execute("DELETE FROM batch WHERE batch_id = ?", id);
 
     }
-    public static boolean update(Batch entity) throws SQLException, ClassNotFoundException {
+    public  boolean update(Batch entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE batch SET batch_name = ?, no_of_students = ?, no_of_lecturers = ?,main_lecturer = ?, batch_representer = ?  WHERE batch_id = ?", entity.getBatchName(), entity.getNoOfStudents(), entity.getNoOfLecturers(), entity.getMainLecturer(), entity.getBatchReprsenter(), entity.getBatchID());
     }
 

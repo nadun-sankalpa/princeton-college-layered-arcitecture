@@ -28,7 +28,7 @@ public class AttendanceDAOImpl implements AttendanceDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM attendance WHERE attendance_id = ?", id);
     }
-    public static boolean update(Attendance entity) throws SQLException, ClassNotFoundException {
+    public  boolean update(Attendance entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE attendance SET student_name = ?, date = ?, in_time = ?, out_time = ?, user_id = ?  WHERE attendance_id = ?", entity.getStudentID(), entity.getDate(), entity.getIn_time(), entity.getOut_time(), entity.getUserID(), entity.getAttendanceID());
     }
 

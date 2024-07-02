@@ -28,7 +28,7 @@ public class ExamsDAOImpl implements ExamsDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM exam WHERE exam_id = ?", id);
     }
-    public static boolean update(Exams entity) throws SQLException, ClassNotFoundException {
+    public boolean update(Exams entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE exam SET exam_name = ?, date = ?, time = ?, lecturer_id = ?  WHERE exam_id = ?", entity.getExamName(), entity.getDate(), entity.getTime(), entity.getLectureID(), entity.getExamID());
     }
 
