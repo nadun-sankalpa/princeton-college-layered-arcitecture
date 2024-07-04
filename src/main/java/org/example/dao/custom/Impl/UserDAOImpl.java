@@ -4,10 +4,16 @@ import org.example.dao.SQLUtil;
 import org.example.dao.custom.UserDAO;
 import org.example.entity.User;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO {
+    public static User checkCredential(String userId, String password) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM user WHERE user_id = ? AND password = ?", userId, password);
+        return new User(rst.getString("user_id"), rst.getString("user_name"), rst.getString("contact_no"), rst.getString("password"), rst.getString("address"));
+    }
+
     public ArrayList<User> getAll() {
         return null;
     }

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.db.DbConnection;
+import org.example.entity.Courses;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -113,8 +114,8 @@ public class AddCourseForm {
         Pattern MainLecturerPattern = Pattern.compile("^[A-z|\\\\s]{3,}$");
 
         if (isValidInput(CourseFeePattern,CourseIdPattern,CourseNamePattern,DurationPattern,MainLecturerPattern)) {
-
-            saveUser(course_id, name, duration, main_lecturer, course_fee);
+            Courses courses
+            if ()
         }
     }
 

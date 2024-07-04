@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaymentDAOImpl implements PaymentDAO {
-    public static boolean savePayment(Payment payment) throws SQLException {
+    public boolean savePayment(Payment payment) throws SQLException {
         String sql = "INSERT INTO payment (payment_id, amount, date, student_id, user_id, course_id) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement checkStmt = connection.prepareStatement(sql);

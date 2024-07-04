@@ -21,7 +21,7 @@ public class CoursesDAOImpl implements CoursesDAO {
             }
               return allCourses;
     }
-    public boolean add(Courses entity) throws SQLException, ClassNotFoundException {
+    public  boolean add(Courses entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("INSERT INTO course VALUES(?,?,?,?,?)", entity.getCourseID(), entity.getCourseName(), entity.getCourseDuration(), entity.getMainLecturer(), entity.getCourseFee());
     }
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
@@ -31,6 +31,10 @@ public class CoursesDAOImpl implements CoursesDAO {
         return SQLUtil.execute("UPDATE course SET course_name = ?, duration = ?, main_lecturer = ?, course_fee = ?  WHERE course_id = ?", entity.getCourseName(), entity.getCourseDuration(), entity.getMainLecturer(), entity.getCourseFee(), entity.getCourseID());
     }
 
+    public Courses courseIDCheck(String courseID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM course WHERE course_id = ?", courseID);
+        return new Courses(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+    }
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;

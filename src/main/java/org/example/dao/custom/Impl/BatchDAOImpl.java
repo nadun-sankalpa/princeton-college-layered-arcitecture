@@ -28,11 +28,20 @@ public class BatchDAOImpl implements BatchDAO {
     public boolean update(Batch entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE batch SET batch_name = ?, no_of_students = ?, no_of_lecturers = ?,main_lecturer = ?, batch_representer = ?  WHERE batch_id = ?", entity.getBatchName(), entity.getNoOfStudents(), entity.getNoOfLecturers(), entity.getMainLecturer(), entity.getBatchReprsenter(), entity.getBatchID());
     }
+    public Batch batchIdCheck(String batchID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM batch WHERE batch_id = ?", batchID);
+
+            return new Batch(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
+
+
+    }
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;
     }
+
+
 
 
 }

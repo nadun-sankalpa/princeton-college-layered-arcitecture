@@ -1,4 +1,12 @@
 package org.example.bo.custom;
 
-public interface AddBatchBO {
+import org.example.entity.Batch;
+
+import java.sql.SQLException;
+
+public interface AddBatchBO{
+    public  boolean add(Batch batch) throws SQLException , ClassNotFoundException;
+
+
+    public  Batch batchIdCheck(String batchID) throws SQLException, ClassNotFoundException;
 }

@@ -1,4 +1,4 @@
-package org.example.bo.custom.EditBO;
+package org.example.bo.custom;
 
 public interface EditAttendanceBO {
 }

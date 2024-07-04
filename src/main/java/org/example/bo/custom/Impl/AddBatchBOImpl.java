@@ -1,26 +1,20 @@
 package org.example.bo.custom.Impl;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddBatchBO;
+import org.example.dao.custom.BatchDAO;
+import org.example.dao.custom.Impl.BatchDAOImpl;
+import org.example.entity.Batch;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
-public class AddBatchBOImpl {
+public class AddBatchBOImpl implements AddBatchBO {
+    BatchDAO batchDAO = new BatchDAOImpl();
 
-
+public Batch batchIdCheck(String batchID) throws SQLException, ClassNotFoundException {
+    return batchDAO.batchIdCheck(batchID);
+}
+public boolean add(Batch batch) throws SQLException, ClassNotFoundException {
+    return batchDAO.add(batch);
+}
 
 }

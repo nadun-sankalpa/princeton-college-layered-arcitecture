@@ -9,12 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddBatchBO;
+import org.example.bo.custom.Impl.AddBatchBOImpl;
+import org.example.entity.Batch;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -40,6 +39,7 @@ public class AddBatchForm {
 
     @FXML
     private TextField txtNoStudents;
+    AddBatchBO addBatchBO = new AddBatchBOImpl();
 
 
     @FXML
@@ -117,7 +117,7 @@ public class AddBatchForm {
 
     }
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String batch_id = txtBatchId.getText();
         String name = txtBatchName.getText();
         String no_students = txtNoStudents.getText();
@@ -134,7 +134,19 @@ public class AddBatchForm {
 
         if (isValidInput(BatchIDPattern,BatchNamePattern,BatchRepresenterPattern,MainLecturerPattern,NoLecturersPattern,NoStudentsPattern)) {
 
-            saveUser(batch_id, name, no_students, no_lecturers, main_lecturer, batch_representer);
+            Batch batch = addBatchBO.batchIdCheck(batch_id);
+            if (batch.getBatchID().equals(batch_id)){
+                new Alert(Alert.AlertType.ERROR, "Batch ID already exists!").show();
+            }else {
+                boolean isAdded = addBatchBO.add(new Batch(batch_id, name, no_lecturers, no_students, main_lecturer, batch_representer));
+                if (isAdded) {
+                    new Alert(Alert.AlertType.INFORMATION, "Batch Added Successfully").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+
+                }
+            }
+
         }
 
 
@@ -188,37 +200,7 @@ public class AddBatchForm {
         return isValid;
     }
 
-    private void saveUser(String batchId, String name, String noStudents, String noLecturers, String mainLecturer, String batchRepresenter) {
-        try {
-            String sqlCheck = "SELECT * FROM batch WHERE batch_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, batchId);
-            ResultSet rs = checkStmt.executeQuery();
 
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Batch ID already exists!").show();
-            } else {
-
-                String sql = "INSERT INTO batch VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, batchId);
-                pstm.setObject(2, name);
-                pstm.setObject(3, noStudents);
-                pstm.setObject(4, noLecturers);
-                pstm.setObject(5, mainLecturer);
-                pstm.setObject(6, batchRepresenter);
-
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Batch saved!").show();
-                }
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {

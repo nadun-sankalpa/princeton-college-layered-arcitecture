@@ -1,45 +1,14 @@
 package org.example.dao.custom.Impl;
 
-import javafx.scene.control.Alert;
 import org.example.dao.SQLUtil;
 import org.example.dao.custom.StudentDAO;
-import org.example.db.DbConnection;
 import org.example.entity.Student;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StudentDAOImpl implements StudentDAO {
-    public static boolean saveStudent(Student student) throws SQLException {
-        String sqlCheck = "SELECT * FROM student WHERE student_id = ?";
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-        checkStmt.setString(1, student.getStudentID());
-        ResultSet rs = checkStmt.executeQuery();
-
-        if (rs.next()) {
-            // Student ID already exists, handle appropriately
-            new Alert(Alert.AlertType.ERROR, "Student ID already exists!").show();
-        } else {
-            // Insert new student record
-            String sql = "INSERT INTO student (student_id, name, address, contact_no, NIC, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, student.getStudentID());
-            pstm.setString(2, student.getName());
-            pstm.setString(3, student.getAddress());
-            pstm.setString(4, student.getContactNo());
-            pstm.setString(5, student.getNicNo());
-            pstm.setString(6, student.getUserID());
-
-            return pstm.executeUpdate() > 0;
-        }
-        return false;
-    }
-
-
     public ArrayList<Student> getAll() throws SQLException, ClassNotFoundException {
         ArrayList<Student> allStudents = new ArrayList<>();
         ResultSet rst = SQLUtil.execute("SELECT * FROM student");
