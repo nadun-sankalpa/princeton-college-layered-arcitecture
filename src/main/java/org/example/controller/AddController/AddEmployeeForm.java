@@ -9,12 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddEmployeeBO;
+import org.example.bo.custom.Impl.AddEmployeeBOImpl;
+import org.example.entity.Employes;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -37,6 +36,16 @@ public class AddEmployeeForm {
 
     @FXML
     private TextField txtNicNo;
+
+    AddEmployeeBO addEmployeeBO = new AddEmployeeBOImpl() {
+
+
+
+        @Override
+        public Employes employeeIdCheck(String employeeID) throws SQLException, ClassNotFoundException {
+            return null;
+        }
+    };
 
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {
@@ -100,7 +109,7 @@ public class AddEmployeeForm {
 
 
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employee_id = txtEmployeeId.getText();
         String name = txtEmployeeName.getText();
         String cno = txtContactNo.getText();
@@ -115,8 +124,19 @@ public class AddEmployeeForm {
 
         if (isValidInput(adressPattern,phonePattern,EmployeeIdPattern,NamePattern,NicNoPattern)) {
 
+             Employes employes = addEmployeeBO.employeeIdCheck(employee_id);
+             if (employes.getEmployeeID().equals(employee_id)) {
+                 new Alert(Alert.AlertType.ERROR, "Employee Id Already Exists").show();
+             }else {
+                 boolean isAdded = addEmployeeBO.add(new Employes(employee_id, name, cno, address, nic_no));
+                 if (isAdded){
+                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Added Successfully").show();
+             }else {
+                 new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
+             }
+             }
 
-            saveUser(employee_id, name, cno, address, nic_no);
+
         }
 
     }
@@ -166,37 +186,8 @@ public class AddEmployeeForm {
         return isValid;
     }
 
-    private void saveUser(String employeeId, String name, String cno, String address, String nicNo) {
-        try {
-            String sqlCheck = "SELECT * FROM employee WHERE employee_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, employeeId);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Employee ID already exists!").show();
-            } else {
-
-                String sql = "INSERT INTO employee VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, employeeId);
-                pstm.setObject(2, name);
-                pstm.setObject(3, cno);
-                pstm.setObject(4, address);
-                pstm.setObject(5, nicNo);
 
 
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Employee saved!").show();
-                }
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {

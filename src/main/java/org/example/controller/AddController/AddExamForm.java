@@ -8,12 +8,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddExamBO;
+import org.example.bo.custom.Impl.AddExamBOImpl;
+import org.example.entity.Exams;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -36,8 +35,10 @@ public class AddExamForm {
     @FXML
     private TextField txtTime;
 
+    AddExamBO addExamBO = new AddExamBOImpl();
+
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String exam_id = txtExamId.getText();
         String name = txtExamName.getText();
         String date = txtDate.getText();
@@ -45,41 +46,21 @@ public class AddExamForm {
         String lecturer_id = txtLecturerId.getText();
 
 
-        saveUser(exam_id, name,date, time, lecturer_id);
-
-    }
-
-    private void saveUser(String examId, String name, String date, String time, String lecturerId) {
-        try {
-            String sqlCheck = "SELECT * FROM exam WHERE exam_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, examId);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Exam ID already exists!").show();
+        Exams exam = addExamBO.examIdCheck(exam_id);
+        if (exam.getExamID().equals(exam_id)) {
+            new Alert(Alert.AlertType.ERROR, "Exam ID already exists!").show();
+        }else {
+            boolean isAdded = addExamBO.add(new Exams(exam_id, name, date, time, lecturer_id));
+            if (isAdded) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Exam added Successfully!").show();
             } else {
-
-                String sql = "INSERT INTO exam VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, examId);
-                pstm.setObject(2, name);
-                pstm.setObject(3, date);
-                pstm.setObject(4, time);
-                pstm.setObject(5, lecturerId);
-
-
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Exam saved!").show();
-                }
+                new Alert(Alert.AlertType.ERROR, "Something happened!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
         }
+
     }
+
+
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {

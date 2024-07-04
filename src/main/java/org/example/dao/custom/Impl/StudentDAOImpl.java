@@ -30,7 +30,13 @@ public class StudentDAOImpl implements StudentDAO {
     public  boolean update(Student entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE student SET name = ?,address = ?,contact_no = ?,NIC = ?,user_id = ?  WHERE student_id = ?", entity.getName(), entity.getAddress(), entity.getContactNo(), entity.getNicNo(), entity.getUserID(), entity.getStudentID());
     }
-
+    public Student checkStudentId(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM student WHERE student_id = ?", id);
+        if (rst.next()) {
+            return new Student(rst.getString("student_id"), rst.getString("name"), rst.getString("address"), rst.getString("contact_no"), rst.getString("NIC"), rst.getString("user_id"));
+        }
+        return null;
+    }
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;

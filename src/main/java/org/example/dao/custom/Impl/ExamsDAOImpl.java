@@ -31,6 +31,10 @@ public class ExamsDAOImpl implements ExamsDAO {
     public boolean update(Exams entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE exam SET exam_name = ?, date = ?, time = ?, lecturer_id = ?  WHERE exam_id = ?", entity.getExamName(), entity.getDate(), entity.getTime(), entity.getLectureID(), entity.getExamID());
     }
+    public Exams examIdCheck(String examID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM exam WHERE exam_id = ?", examID);
+        return new Exams(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+    }
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

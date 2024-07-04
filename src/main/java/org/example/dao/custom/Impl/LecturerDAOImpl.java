@@ -31,6 +31,10 @@ public class LecturerDAOImpl implements LecturerDAO {
     public boolean update(Lecturer entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE lecturer SET name = ?,contact_no = ?,address = ?,nic_no = ?  WHERE lecturer_id = ?", entity.getName(), entity.getContactNo(), entity.getAddress(), entity.getNicNo(), entity.getLecturerID());
     }
+    public Lecturer lecturerIdCheck(String lecturerID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM lecturer WHERE lecturer_id = ?", lecturerID);
+        return new Lecturer(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+    }
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

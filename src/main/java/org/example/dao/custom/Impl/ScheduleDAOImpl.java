@@ -37,6 +37,19 @@ public class ScheduleDAOImpl implements ScheduleDAO {
     public  boolean update(Schedule entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE schedule SET module_name = ?, date = ?, time = ?,lecturer_id = ?,WHERE schedule_id = ?", entity.getModuleName(), entity.getDate(), entity.getTime(), entity.getLecturerID(), entity.getScheduleID());
     }
+    public Schedule checkScheduleId(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM schedule WHERE schedule_id = ?", id);
+        if (rst.next()) {
+            return new Schedule(
+                    rst.getString("schedule_id"),
+                    rst.getString("module_name"),
+                    rst.getString("date"),
+                    rst.getString("time"),
+                    rst.getString("lecturer_id")
+            );
+        }
+        return null;
+    }
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

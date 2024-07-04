@@ -8,12 +8,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddScheduleBO;
+import org.example.bo.custom.Impl.AddScheduleBOImpl;
+import org.example.entity.Schedule;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -35,50 +34,28 @@ public class AddScheduleForm {
 
     @FXML
     private TextField txtscheduleId;
+    AddScheduleBO addScheduleBO = new AddScheduleBOImpl();
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String schedule_id = txtscheduleId.getText();
         String name = txtModuleName.getText();
         String date = txtDate.getText();
         String time = txtTime.getText();
         String lecturer_id = txtLecturerId.getText();
 
+        Schedule schedule = addScheduleBO.checkScheduleId(schedule_id);
+        if (schedule.getScheduleID().equals(schedule_id)) {
+            new Alert(Alert.AlertType.ERROR, "Schedule ID already exists!").show();
+        } else {
+            boolean isAdded = addScheduleBO.add(new Schedule(schedule_id, name, date, time, lecturer_id));
 
-        saveUser(schedule_id, name,date, time, lecturer_id);
-
-
-    }
-
-    private void saveUser(String scheduleId, String name, String date, String time, String lecturerId) {
-        try {
-            String sqlCheck = "SELECT * FROM schedule WHERE schedule_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, scheduleId);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Schedule ID already exists!").show();
-            } else {
-
-                String sql = "INSERT INTO schedule VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, scheduleId);
-                pstm.setObject(2, name);
-                pstm.setObject(3, date);
-                pstm.setObject(4, time);
-                pstm.setObject(5, lecturerId);
-
-
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Schedule saved!").show();
-                }
+            if (isAdded) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Schedule saved!").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something happened!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
         }
+
     }
 
     @FXML

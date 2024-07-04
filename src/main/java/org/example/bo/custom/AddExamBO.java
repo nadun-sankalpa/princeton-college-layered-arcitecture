@@ -6,4 +6,6 @@ import java.sql.SQLException;
 
 public interface AddExamBO {
     public boolean add(Exams exam) throws SQLException, ClassNotFoundException;
+
+    public Exams examIdCheck(String examID) throws SQLException, ClassNotFoundException;
 }

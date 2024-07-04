@@ -18,17 +18,18 @@ import java.sql.SQLException;
 
 public class AddStudentBOImpl implements AddStudentBO {
     UserDAO userDAO = new UserDAOImpl();
-    StudentDAO studentDAO = new StudentDAOImpl();
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
+     StudentDAO studentDAO = new StudentDAOImpl();
+     PaymentDAO paymentDAO = new PaymentDAOImpl();
 
 
     public static boolean studentRegistration(StudentDTO studentDTO, PaymentDTO paymentDTO, String userID, String initialPayment) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
         try {
-            boolean isStudentSaved = StudentDAOImpl.saveStudent(Student);
+            boolean isStudentSaved = studentDAO.add(student);
             if(isStudentSaved) {
-                boolean isPayementSaved = PaymentDAOImpl.savePayment(Payment);
+                String studentID = StudentDAO.getNextId();
+                boolean isPayementSaved = paymentDAO.add(payment);
                 if (isPayementSaved) {
                     connection.commit();
                     return true;
@@ -47,5 +48,6 @@ public class AddStudentBOImpl implements AddStudentBO {
 
 
     public static boolean studentRegistration(Student student, Payment payment) {
+
     }
 }

@@ -29,6 +29,10 @@ public class EmployesDAOImpl implements EmployesDAO {
     public boolean update(Employes entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("UPDATE employee SET name = ?,contact_no = ?,address = ?,nic_no = ?  WHERE employee_id = ?", entity.getName(), entity.getContactNo(), entity.getAddress(), entity.getNicNo(), entity.getEmployeeID());
     }
+    public Employes employeeIdCheck(String employeeID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM employee WHERE employee_id = ?", employeeID);
+        return new Employes(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+    }
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

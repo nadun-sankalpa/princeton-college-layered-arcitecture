@@ -9,12 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddLecturerBO;
+import org.example.bo.custom.Impl.AddLecturerBOImpl;
+import org.example.entity.Lecturer;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -40,6 +39,8 @@ public class AddlecturerForm {
 
     @FXML
     private TextField txtNicNo;
+
+    AddLecturerBO addLecturerBO = new AddLecturerBOImpl();
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {
         Pattern adressPattern = Pattern.compile( "^([A-z0-9]|[-/,.@+]|\\\\s){4,}$");
@@ -103,7 +104,7 @@ public class AddlecturerForm {
 
 
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String lecturer_id = txtLecturerId.getText();
         String name = txtName.getText();
         String cno = txtCno.getText();
@@ -124,7 +125,18 @@ public class AddlecturerForm {
 
         if (isValidInput(adressPattern,phonePattern,LecturerIdPattern,NamePattern,NicNoPattern)) {
 
-            saveUser(lecturer_id, name, cno, address, nic_no);
+            Lecturer lecturer = addLecturerBO.lecturerIdCheck(lecturer_id);
+            if (lecturer.getLecturerID().equals(lecturer_id)) {
+                new Alert(Alert.AlertType.ERROR, "Lecturer ID already exists!").show();
+            }else {
+                boolean isAdded = addLecturerBO.add(new Lecturer(lecturer_id, name, cno, address, nic_no));
+                if (isAdded) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Successfully Added").show();
+                } else {
+                    new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+                }
+            }
+
         }
 
     }
@@ -169,41 +181,6 @@ public class AddlecturerForm {
         }
         return isValid;
     }
-
-    private void saveUser(String lecturer_id, String name, String cno, String address, String nic_no) {
-        try {
-            String sqlCheck = "SELECT * FROM lecturer WHERE lecturer_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, lecturer_id);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Lecturer ID already exists!").show();
-            } else {
-
-                String sql = "INSERT INTO lecturer VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, lecturer_id);
-                pstm.setObject(2, name);
-                pstm.setObject(3, cno);
-                pstm.setObject(4, address);
-                pstm.setObject(5, nic_no);
-
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Lecturer saved!").show();
-                }
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
-        }
-
-    }
-
-
-
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {

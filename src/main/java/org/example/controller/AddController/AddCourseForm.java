@@ -9,13 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.AddCoursesBO;
+import org.example.bo.custom.Impl.AddCoursesBOImpl;
 import org.example.entity.Courses;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -38,6 +36,8 @@ public class AddCourseForm {
 
     @FXML
     private TextField txtMainLecturer;
+
+    AddCoursesBO addCoursesBO = new AddCoursesBOImpl();
     @FXML
     void txtCourseFeeReleasedOnAction(KeyEvent event) {
         Pattern CourseFeePattern = Pattern.compile("^(0|[1-9]\\d{0,6}|10000000)$");
@@ -100,7 +100,7 @@ public class AddCourseForm {
     }
 
     @FXML
-    void btnAddOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String course_id = txtCourseId.getText();
         String name = txtCourseName.getText();
         String duration = txtDuration.getText();
@@ -114,8 +114,17 @@ public class AddCourseForm {
         Pattern MainLecturerPattern = Pattern.compile("^[A-z|\\\\s]{3,}$");
 
         if (isValidInput(CourseFeePattern,CourseIdPattern,CourseNamePattern,DurationPattern,MainLecturerPattern)) {
-            Courses courses
-            if ()
+            Courses courses = addCoursesBO.courseIDCheck(course_id);
+            if (courses.getCourseID().equals(course_id)) {
+                new Alert(Alert.AlertType.ERROR, "Course ID already exists").show();
+            } else {
+                boolean isAdded = addCoursesBO.add(new Courses(course_id, name, duration, main_lecturer, course_fee));
+                if (isAdded) {
+                    new Alert(Alert.AlertType.INFORMATION, "Course Added Successfully").show();
+                }else {
+                    new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+                }
+            }
         }
     }
 
@@ -159,37 +168,7 @@ public class AddCourseForm {
         return isValid;
     }
 
-    private void saveUser(String courseId, String name, String duration, String mainLecturer, String courseFee) {
 
-        try {
-            String sqlCheck = "SELECT * FROM course WHERE course_id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement checkStmt = connection.prepareStatement(sqlCheck);
-            checkStmt.setString(1, courseId);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-
-                new Alert(Alert.AlertType.ERROR, "Course ID already exists!").show();
-            } else {
-
-                String sql = "INSERT INTO course VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstm = connection.prepareStatement(sql);
-                pstm.setObject(1, courseId);
-                pstm.setObject(2, name);
-                pstm.setObject(3, duration);
-                pstm.setObject(4, mainLecturer);
-                pstm.setObject(5, courseFee);
-
-                if (pstm.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Course saved!").show();
-                }
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {
