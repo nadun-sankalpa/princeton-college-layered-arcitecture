@@ -1,4 +1,7 @@
 package org.example.bo.custom;
 
-public interface EditStudentBO {
+import java.sql.SQLException;
+
+public interface EditStudentBO  {
+    public  boolean update(String studentID, String name, String address, String contactNo, String nicNo, String userID) throws SQLException, ClassNotFoundException;
 }

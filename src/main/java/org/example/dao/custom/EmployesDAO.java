@@ -7,5 +7,6 @@ import java.sql.SQLException;
 
 public interface EmployesDAO extends CrudDAO<Employes> {
     public boolean add(Employes entity) throws SQLException, ClassNotFoundException;
+    public boolean update(String employeeID, String name, String contactNo, String address, String nicNo) throws SQLException, ClassNotFoundException;
     public Employes employeeIdCheck(String employeeID) throws SQLException, ClassNotFoundException;
 }

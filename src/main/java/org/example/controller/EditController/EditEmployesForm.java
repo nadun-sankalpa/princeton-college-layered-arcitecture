@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.EmployesDAOImpl;
-import org.example.entity.Employes;
+import org.example.bo.custom.EditEmployeeBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditEmployeeBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +34,8 @@ public class EditEmployesForm {
     @FXML
     private TextField txtNicNo;
 
+    EditEmployeeBO editEmployeeBO = new EditEmployeeBOImpl();
+
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String employee_id = txtEmployeeId.getText();
@@ -42,12 +44,17 @@ public class EditEmployesForm {
         String address = txtAddress.getText();
         String nic_no = txtNicNo.getText();
 
-        Employes employee = new Employes(employee_id, name,cno, address, nic_no);
-
         try {
-            boolean isUpdated = EmployesDAOImpl.update(employee);
+            boolean isUpdated = editEmployeeBO.update(employee_id, name, cno, address, nic_no);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee updated!").show();
+                txtEmployeeId.setText("");
+                txtEmployeeName.setText("");
+                txtContactNo.setText("");
+                txtAddress.setText("");
+                txtNicNo.setText("");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

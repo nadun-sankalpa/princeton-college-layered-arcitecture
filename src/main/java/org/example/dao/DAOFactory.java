@@ -1,6 +1,5 @@
 package org.example.dao;
 
-import org.example.dao.custom.CoursesDAO;
 import org.example.dao.custom.Impl.*;
 
 public class DAOFactory {
@@ -16,7 +15,7 @@ public class DAOFactory {
         return daoFactory;
     }
     public enum DAOTypes{
-        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule,Student
+        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule, STUDENT, ATTENDANCE, BATCH, COURSES, EMPLOYEES, EXAMS, LECTURER, PAYMENT, SCHEDULE, Student
     }
 
 

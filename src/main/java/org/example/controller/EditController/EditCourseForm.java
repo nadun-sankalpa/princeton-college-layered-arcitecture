@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.CoursesDAOImpl;
-import org.example.entity.Courses;
+import org.example.bo.custom.EditCoursesBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditCoursesBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +34,8 @@ public class EditCourseForm {
     @FXML
     private TextField txtMainLecturer;
 
+    EditCoursesBO editCoursesBO = new EditCoursesBOImpl();
+
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String course_id = txtCourseId.getText();
@@ -42,12 +44,17 @@ public class EditCourseForm {
         String main_lecturer = txtMainLecturer.getText();
         String course_fee = txtCourseFee.getText();
 
-        Courses courses = new Courses(course_id, name,duration,  main_lecturer, course_fee);
-
         try {
-            boolean isUpdated = CoursesDAOImpl.update(courses);
+            boolean isUpdated = editCoursesBO.update(course_id, name, duration, main_lecturer, course_fee);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Course updated!").show();
+                txtCourseId.setText("");
+                txtCourseName.setText("");
+                txtDuration.setText("");
+                txtMainLecturer.setText("");
+                txtCourseFee.setText("");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

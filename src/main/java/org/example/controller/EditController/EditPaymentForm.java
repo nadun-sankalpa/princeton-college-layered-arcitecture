@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.PaymentDAOImpl;
-import org.example.entity.Payment;
+import org.example.bo.custom.EditPaymentBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditPaymentBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,6 +36,8 @@ public class EditPaymentForm {
 
     @FXML
     private TextField txtUserID;
+
+    EditPaymentBO editPaymentBO = new EditPaymentBOImpl();
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String payment_id = txtPaymentId.getText();
@@ -45,12 +47,21 @@ public class EditPaymentForm {
         String user_id = txtUserID.getText();
         String course_id = txtCourseId.getText();
 
-        Payment payment = new Payment(payment_id, amount,date,student_id,user_id, course_id);
+
 
         try {
-            boolean isUpdated = PaymentDAOImpl.update(payment);
+            boolean isUpdated = editPaymentBO.update(payment_id, amount, date, student_id, user_id, course_id);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Payment updated!").show();
+                txtPaymentId.setText("");
+                txtAmount.setText("");
+                txtDate.setText("");
+                txtStudentId.setText("");
+                txtUserID.setText("");
+                txtCourseId.setText("");
+
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

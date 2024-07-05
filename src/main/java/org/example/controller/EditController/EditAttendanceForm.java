@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.AttendanceDAOImpl;
-import org.example.entity.Attendance;
+import org.example.bo.custom.EditAttendanceBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditAttendanceBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,6 +36,8 @@ public class EditAttendanceForm {
 
     @FXML
     private TextField txtUserId;
+
+    EditAttendanceBO editAttendanceBO = new EditAttendanceBOImpl();
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String attendance_id = txtAttendanceId.getText();
@@ -45,12 +47,20 @@ public class EditAttendanceForm {
         String out_time = txtOutTime.getText();
         String user_id = txtUserId.getText();
 
-        Attendance attendance = new Attendance(attendance_id,student_name,date,in_time,out_time,user_id);
+
 
         try {
-            boolean isUpdated = AttendanceDAOImpl.update(attendance);
+            boolean isUpdated = editAttendanceBO.update(attendance_id,student_name, date, in_time, out_time, user_id);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Attendance updated!").show();
+                txtAttendanceId.setText("");
+                txtStudentName.setText("");
+                txtDate.setText("");
+                txtInTime.setText("");
+                txtOutTime.setText("");
+                txtUserId.setText("");
+            }else {
+                new Alert(Alert.AlertType.WARNING, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

@@ -14,7 +14,7 @@ public class AddStudentDAOImpl implements AddStudentDAO {
         Connection connection = DbConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
         try {
-            boolean isStudentSaved = StudentDAOImpl.saveStudent(student);
+            boolean isStudentSaved = StudentDAOImpl.addStudent(student);
             if(isStudentSaved) {
                 boolean isPayementSaved = PaymentDAOImpl.savePayment(payment);
                 if (isPayementSaved) {

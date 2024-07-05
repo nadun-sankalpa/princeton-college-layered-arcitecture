@@ -34,8 +34,8 @@ public class ScheduleDAOImpl implements ScheduleDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM schedule WHERE schedule_id = ?", id);
     }
-    public  boolean update(Schedule entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE schedule SET module_name = ?, date = ?, time = ?,lecturer_id = ?,WHERE schedule_id = ?", entity.getModuleName(), entity.getDate(), entity.getTime(), entity.getLecturerID(), entity.getScheduleID());
+    public  boolean update(String scheduleID, String moduleName, String date, String time, String lecturerID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE schedule SET  schedule_id = ?,module_name = ?, date = ?, time = ?,lecturer_id = ?,WHERE schedule_id = ?", scheduleID, moduleName, date, time, lecturerID, scheduleID);
     }
     public Schedule checkScheduleId(String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM schedule WHERE schedule_id = ?", id);

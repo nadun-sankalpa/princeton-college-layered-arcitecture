@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.LecturerDAOImpl;
-import org.example.entity.Lecturer;
+import org.example.bo.custom.EditLecturerBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditLecturerBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +34,8 @@ public class EditLecturerForm {
     @FXML
     private TextField txtNicNo;
 
+    EditLecturerBO editLecturerBO = new EditLecturerBOImpl();
+
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String lecturer_id = txtLecturerId.getText();
@@ -42,12 +44,19 @@ public class EditLecturerForm {
         String address = txtAddress.getText();
         String nic_no = txtNicNo.getText();
 
-        Lecturer lecturer = new Lecturer(lecturer_id, name,cno,address,nic_no);
+
 
         try {
-            boolean isUpdated = LecturerDAOImpl.update(lecturer);
+            boolean isUpdated = editLecturerBO.update(lecturer_id, name, cno, address, nic_no);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "lecturer updated!").show();
+                txtLecturerId.setText("");
+                txtName.setText("");
+                txtCno.setText("");
+                txtAddress.setText("");
+                txtNicNo.setText("");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

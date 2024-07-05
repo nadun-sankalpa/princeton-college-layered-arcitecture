@@ -27,8 +27,8 @@ public class StudentDAOImpl implements StudentDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM student WHERE student_id = ?", id);
     }
-    public  boolean update(Student entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE student SET name = ?,address = ?,contact_no = ?,NIC = ?,user_id = ?  WHERE student_id = ?", entity.getName(), entity.getAddress(), entity.getContactNo(), entity.getNicNo(), entity.getUserID(), entity.getStudentID());
+    public  boolean update(String studentID, String name, String address, String contactNo, String nicNo, String userID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE student SET student_id = ?, name = ?,address = ?,contact_no = ?,NIC = ?,user_id = ?  WHERE student_id = ?", studentID, name, address, contactNo, nicNo, userID, studentID);
     }
     public Student checkStudentId(String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM student WHERE student_id = ?", id);

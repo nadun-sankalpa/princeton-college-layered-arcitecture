@@ -57,8 +57,8 @@ public class PaymentDAOImpl implements PaymentDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM payment WHERE payment_id = ?", id);
     }
-    public boolean update(Payment entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE payment SET amount = ?, date = ?, student_id = ?,user_id = ?, course_id = ?  WHERE payment_id = ?", entity.getAmount(), entity.getDate(), entity.getStudentID(), entity.getUserID(), entity.getCourseID(), entity.getPaymentID());
+    public boolean update(String paymentID, String amount, String date, String studentID, String userID, String courseID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE payment SET  payment_id = ?,amount = ?, date = ?, student_id = ?,user_id = ?, course_id = ?  WHERE payment_id = ?", paymentID, amount, date, studentID, userID, courseID, paymentID);
     }
 
     @Override

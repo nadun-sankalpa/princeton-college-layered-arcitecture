@@ -11,12 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.example.db.DbConnection;
+import org.example.bo.custom.Impl.LoginBOImpl;
+import org.example.bo.custom.LoginBO;
+import org.example.entity.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginFormController {
@@ -36,37 +35,36 @@ public class LoginFormController {
     @FXML
     private AnchorPane rootNode;
 
+    LoginBO loginBO = new LoginBOImpl();
+
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         String userId = txtUserId.getText();
         String pw = txtPassword.getText();
 
         try {
-            checkCredential(userId, pw);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "OOPS! something went wrong").show();
-            e.printStackTrace();
+            User user = loginBO.checkCredential(userId, pw);
+            if (user.getUserId().equals(userId)) {
+                String dbpw = user.getPassword();
+
+                if (dbpw.equals(pw)) {
+                    navigateToTheDashboard();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
+                }
+                }else {
+                    new Alert(Alert.AlertType.ERROR, "User Id is incorrect!").show();
+
+                }
+            } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            throw new RuntimeException(e);
         }
+
     }
-    private void checkCredential(String userId, String pw) throws SQLException, IOException {
-        String sql = "SELECT user_id, password FROM user WHERE user_id = ?";
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, userId);
 
-        ResultSet resultSet = pstm.executeQuery();
-        if(resultSet.next()) {
-            String dbPw = resultSet.getString(2);
-
-            if(dbPw.equals(pw)) {
-                navigateToTheDashboard();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
-            }
-        } else {
-            new Alert(Alert.AlertType.INFORMATION, "user id not found!").show();
-        }
-    }
     private void navigateToTheDashboard() throws IOException {
         AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/org/example/dashboard_form.fxml"));
 

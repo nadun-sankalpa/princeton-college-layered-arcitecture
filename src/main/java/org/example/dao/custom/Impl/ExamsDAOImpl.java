@@ -28,8 +28,8 @@ public class ExamsDAOImpl implements ExamsDAO {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM exam WHERE exam_id = ?", id);
     }
-    public boolean update(Exams entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE exam SET exam_name = ?, date = ?, time = ?, lecturer_id = ?  WHERE exam_id = ?", entity.getExamName(), entity.getDate(), entity.getTime(), entity.getLectureID(), entity.getExamID());
+    public boolean update(String examID, String examName, String date, String time, String lectureID) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE exam SET exam_id = ?,exam_name = ?, date = ?, time = ?, lecturer_id = ?  WHERE exam_id = ?", examID, examName, date, time, lectureID, examID);
     }
     public Exams examIdCheck(String examID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM exam WHERE exam_id = ?", examID);

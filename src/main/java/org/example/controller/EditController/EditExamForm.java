@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.ExamsDAOImpl;
-import org.example.entity.Exams;
+import org.example.bo.custom.EditExamBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditExamBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +34,8 @@ public class EditExamForm {
     @FXML
     private TextField txtTime;
 
+    EditExamBO editExamBO = new EditExamBOImpl();
+
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String exam_id = txtExamId.getText();
@@ -42,12 +44,19 @@ public class EditExamForm {
         String time = txtTime.getText();
         String lecturer_id = txtLecturerId.getText();
 
-        Exams exam = new Exams(exam_id, name,date, time, lecturer_id);
+
 
         try {
-            boolean isUpdated = ExamsDAOImpl.update(exam);
+            boolean isUpdated = editExamBO.update(exam_id, name, date, time, lecturer_id);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Exam updated!").show();
+                txtExamId.setText("");
+                txtExamName.setText("");
+                txtDate.setText("");
+                txtTime.setText("");
+                txtLecturerId.setText("");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

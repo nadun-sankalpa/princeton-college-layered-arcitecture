@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.example.dao.custom.Impl.ScheduleDAOImpl;
-import org.example.entity.Schedule;
+import org.example.bo.custom.EditScheduleBO;
+import org.example.bo.custom.Impl.Edit_Impl.EditScheduleBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,6 +33,8 @@ public class EditScheduleForm {
 
     @FXML
     private TextField txtscheduleId;
+
+    EditScheduleBO editScheduleBO = new EditScheduleBOImpl();
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String schedule_id = txtscheduleId.getText();
@@ -41,13 +43,17 @@ public class EditScheduleForm {
         String time = txtTime.getText();
         String lecturer_id = txtLecturerId.getText();
 
-
-        Schedule schedule = new Schedule(schedule_id, name,date, time, lecturer_id);
-
         try {
-            boolean isUpdated = ScheduleDAOImpl.update(schedule);
+            boolean isUpdated = editScheduleBO.update(schedule_id, name, date, time, lecturer_id);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Schedule updated!").show();
+                txtscheduleId.setText("");
+                txtModuleName.setText("");
+                txtDate.setText("");
+                txtTime.setText("");
+                txtLecturerId.setText("");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
