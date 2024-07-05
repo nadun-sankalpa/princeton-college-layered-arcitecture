@@ -15,7 +15,7 @@ public class DAOFactory {
         return daoFactory;
     }
     public enum DAOTypes{
-        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule, STUDENT, ATTENDANCE, BATCH, COURSES, EMPLOYEES, EXAMS, LECTURER, PAYMENT, SCHEDULE, Student
+        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule, STUDENT, ATTENDANCE, BATCH, COURSES, EMPLOYEES, EXAMS, LECTURER, PAYMENT, SCHEDULE, COURSE, EMPLOYEE, Student
     }
 
 

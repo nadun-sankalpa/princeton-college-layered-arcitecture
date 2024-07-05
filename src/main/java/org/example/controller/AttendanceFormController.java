@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.AttendanceBO;
+import org.example.bo.custom.Impl.AttendanceBOImpl;
+import org.example.entity.Attendance;
+import org.example.view.tdm.AttendanceTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class AttendanceFormController {
@@ -41,7 +51,41 @@ public class AttendanceFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblAttendance;
+    private TableView<Attendance> tblAttendance;
+
+    private List<AttendanceTM> attendanceList = new ArrayList<AttendanceTM>();
+
+    AttendanceBO attendanceBO = new AttendanceBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadAttendanceTable();
+    }
+    public void loadAttendanceTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Attendance> tmList = FXCollections.observableArrayList(attendanceBO.getAll());
+        for (Attendance a : tmList) {
+            AttendanceTM attendancetm = new AttendanceTM(
+                    a.getAttendanceID(),
+                    a.getStudentID(),
+                    a.getIn_time(),
+                    a.getOut_time(),
+                    a.getDate(),
+                    a.getUserID()
+            );
+            attendanceList.add(attendancetm);
+        }
+
+        tblAttendance.setItems(tmList);
+    }
+    private void setCellValueFactory() {
+
+        colAttendanceId.setCellValueFactory(new PropertyValueFactory<>("attendanceID"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colInTime.setCellValueFactory(new PropertyValueFactory<>("in_time"));
+        colOutTime.setCellValueFactory(new PropertyValueFactory<>("out_time"));
+        colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("userID"));
+    }
 
     @FXML
     void btnAddAttendanceOnAction(ActionEvent event) throws IOException {

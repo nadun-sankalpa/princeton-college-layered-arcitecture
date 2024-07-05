@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.CoursesBO;
+import org.example.bo.custom.Impl.CoursesBOImpl;
+import org.example.entity.Courses;
+import org.example.view.tdm.CoursesTm;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CoursesFormController {
@@ -38,8 +48,38 @@ public class CoursesFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblCourse;
+    private TableView<Courses> tblCourse;
 
+    private List<CoursesTm> coursesList = new ArrayList<CoursesTm>();
+
+    CoursesBO coursesBO = new CoursesBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadCourseTable();
+    }
+    public void loadCourseTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Courses> tmList = FXCollections.observableArrayList(coursesBO.getAll());
+        for (Courses c :tmList){
+          CoursesTm coursesTm = new CoursesTm(
+                  c.getCourseID(),
+                  c.getCourseName(),
+                  c.getCourseDuration(),
+                  c.getMainLecturer(),
+                  c.getCourseFee()
+          );
+          coursesList.add(coursesTm);
+        }
+        tblCourse.setItems(tmList);
+    }
+    private void setCellValueFactory() {
+
+        colCourseId.setCellValueFactory(new PropertyValueFactory<>("courseID"));
+        colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
+        colCourseFee.setCellValueFactory(new PropertyValueFactory<>("courseFee"));
+        colDuration.setCellValueFactory(new PropertyValueFactory<>("courseDuration"));
+        colMainLecturer.setCellValueFactory(new PropertyValueFactory<>("mainLecturer"));
+    }
     @FXML
     void btnAddCourseOnAction(ActionEvent event) throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/org/example/addCourse_form.fxml"));

@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.ExamBO;
+import org.example.bo.custom.Impl.ExamBOImpl;
+import org.example.entity.Exams;
+import org.example.view.tdm.ExamTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ExamsFormController {
@@ -41,7 +51,40 @@ public class ExamsFormController {
     private AnchorPane rootNode1;
 
     @FXML
-    private TableView<?> tblExam;
+    private TableView<Exams> tblExam;
+
+    private List<ExamTM> examList = new ArrayList<ExamTM>();
+
+    ExamBO examBO = new ExamBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadExamTable();
+
+    }
+
+    private void loadExamTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Exams> tmList = FXCollections.observableArrayList(examBO.getAll());
+        for (Exams e : tmList) {
+            ExamTM examTM = new ExamTM(
+                    e.getExamID(),
+                    e.getExamName(),
+                    e.getDate(),
+                    e.getTime(),
+                    e.getLectureID()
+            );
+            examList.add(examTM);
+        }
+            tblExam.setItems(tmList);
+        }
+    private void setCellValueFactory() {
+
+        colExamId.setCellValueFactory(new PropertyValueFactory<>("examID"));
+        colExamName.setCellValueFactory(new PropertyValueFactory<>("examName"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        colLecturerId.setCellValueFactory(new PropertyValueFactory<>("lecturerID"));
+    }
 
     @FXML
     void btnAddExamOnAction(ActionEvent event) throws IOException {

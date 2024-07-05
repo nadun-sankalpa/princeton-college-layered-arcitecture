@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.EmployeeBO;
+import org.example.bo.custom.Impl.EmployeeBOImpl;
+import org.example.entity.Employes;
+import org.example.view.tdm.EmployeeTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class EmployesFormController {
@@ -38,7 +48,39 @@ public class EmployesFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblEmployee;
+    private TableView<Employes> tblEmployee;
+
+    private List<EmployeeTM> employeeList = new ArrayList<EmployeeTM>();
+
+    EmployeeBO employeeBO = new EmployeeBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadEmployeeTable();
+    }
+
+    public void loadEmployeeTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Employes> tmList = FXCollections.observableArrayList(employeeBO.getAll());
+        for (Employes e : tmList) {
+            EmployeeTM employeeTM = new EmployeeTM(
+                    e.getEmployeeID(),
+                    e.getName(),
+                    e.getNicNo(),
+                    e.getContactNo(),
+                    e.getAddress()
+            );
+            employeeList.add(employeeTM);
+        }
+        tblEmployee.setItems(tmList);
+    }
+    private void setCellValueFactory() {
+
+        colEmplyoyeId.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        colEmployeName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colNicNumber.setCellValueFactory(new PropertyValueFactory<>("nicNo"));
+        colContactNo.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+    }
 
     @FXML
     void btnAddEmployeeOnAction(ActionEvent event) throws IOException {
