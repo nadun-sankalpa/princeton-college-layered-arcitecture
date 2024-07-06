@@ -8,8 +8,6 @@ import org.example.dao.custom.PaymentDAO;
 import org.example.dao.custom.StudentDAO;
 import org.example.dao.custom.UserDAO;
 import org.example.db.DbConnection;
-import org.example.dto.PaymentDTO;
-import org.example.dto.StudentDTO;
 import org.example.entity.Payment;
 import org.example.entity.Student;
 
@@ -22,13 +20,13 @@ public class AddStudentBOImpl implements AddStudentBO {
      PaymentDAO paymentDAO = new PaymentDAOImpl();
 
 
-    public static boolean studentRegistration(StudentDTO studentDTO, PaymentDTO paymentDTO, String userID, String initialPayment) throws SQLException, ClassNotFoundException {
+    public  boolean studentRegistration(Student student, Payment payment) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
+
         try {
             boolean isStudentSaved = studentDAO.add(student);
-            if(isStudentSaved) {
-                String studentID = StudentDAO.getNextId();
+            if (isStudentSaved) {
                 boolean isPayementSaved = paymentDAO.add(payment);
                 if (isPayementSaved) {
                     connection.commit();
@@ -41,13 +39,10 @@ public class AddStudentBOImpl implements AddStudentBO {
             e.printStackTrace();
             connection.rollback();
             return false;
-        }finally {
+        } finally {
             connection.setAutoCommit(true);
         }
-    }
 
-
-    public static boolean studentRegistration(Student student, Payment payment) {
 
     }
 }

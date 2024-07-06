@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.AddStudentBO;
 import org.example.bo.custom.Impl.AddStudentBOImpl;
 import org.example.dao.custom.Impl.PaymentDAOImpl;
 import org.example.entity.Payment;
@@ -47,6 +48,8 @@ public class AddStudentForm {
 
     @FXML
     private TextField txtCourseId;
+
+    AddStudentBO addStudentBO = new AddStudentBOImpl();
 
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {
@@ -172,7 +175,7 @@ public class AddStudentForm {
                 Payment payment = new Payment(PaymentId, initial_payment, date, student_id, user_id, course_id);
 
 
-                boolean isSaved = AddStudentBOImpl.studentRegistration(student, payment);
+                boolean isSaved = addStudentBO.studentRegistration(student, payment);
 
             }
 
