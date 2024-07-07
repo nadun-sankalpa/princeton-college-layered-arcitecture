@@ -8,10 +8,10 @@ import  java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class BatchDTO implements Serializable {
-    private String batchId;
+    private String batchID;
     private String batchName;
-    private String batchRepresenter;
-    private String mainLecturer;
-    private String noOfLecturers;
     private String noOfStudents;
+    private String noOfLecturers;
+    private String mainLecturer;
+    private String batchRepresenter;
 }

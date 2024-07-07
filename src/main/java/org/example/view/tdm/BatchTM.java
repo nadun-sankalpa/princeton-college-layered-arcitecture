@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BatchTM implements Comparable<BatchTM> {
-    private String BatchID;
-    private String BatchName;
-    private String NoOfStudents;
-    private String NoOfLecturers;
-    private String MainLecturer;
-    private String BatchRepresenter;
+    private String batchID;
+    private String batchName;
+    private String noOfStudents;
+    private String noOfLecturers;
+    private String mainLecturer;
+    private String batchRepresenter;
 
     @Override
     public int compareTo(BatchTM o) {

@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.Impl.StudentBOImpl;
+import org.example.bo.custom.StudentBO;
+import org.example.entity.Student;
+import org.example.view.tdm.StudentTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class StudentFormController {
@@ -41,7 +51,42 @@ public class StudentFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblStudent;
+    private TableView<Student> tblStudent;
+
+    private List<StudentTM> studentList = new ArrayList<StudentTM>();
+
+    StudentBO studentBO = new StudentBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadStudentTable();
+    }
+
+    public void loadStudentTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Student> tmList = FXCollections.observableArrayList(studentBO.getAll());
+        for (Student s : tmList) {
+            StudentTM studentTM = new StudentTM(
+                    s.getStudentID(),
+                    s.getName(),
+                    s.getContactNo(),
+                    s.getNicNo(),
+                    s.getAddress(),
+                    s.getUserID()
+            );
+            studentList.add(studentTM);
+
+        }
+        tblStudent.setItems(tmList);
+    }
+
+    private void setCellValueFactory(){
+        colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        colStudentName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colContactNo.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
+        colNicNumber.setCellValueFactory(new PropertyValueFactory<>("nicNo"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("userID"));
+    }
 
 
     @FXML

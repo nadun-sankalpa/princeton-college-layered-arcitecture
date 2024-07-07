@@ -11,13 +11,24 @@ public class AddAttendanceBOImpl implements AddAttendanceBO {
 
     AttendanceDAO attendanceDAO = new AttendanceDAOImpl();
 
+
     @Override
-    public boolean add(Attendance attendance) throws SQLException, ClassNotFoundException {
-        return attendanceDAO.add(attendance);
+    public boolean add(Attendance attendance) {
+        try {
+            return attendanceDAO.add(attendance);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public Attendance attendanceIdCheck(String id) throws SQLException, ClassNotFoundException {
-        return attendanceDAO.attendanceIdCheck(id);
+    public boolean update(String attendanceId, String studentName, String date, String in_time, String out_time, String userID) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public Attendance attendanceIdCheck(String attendanceID) throws SQLException, ClassNotFoundException{
+        return attendanceDAO.attendanceIdCheck(attendanceID);
     }
 }

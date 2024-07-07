@@ -5,7 +5,9 @@ import org.example.entity.Attendance;
 import java.sql.SQLException;
 
 public interface AddAttendanceBO {
-    public boolean add(Attendance entity) throws SQLException, ClassNotFoundException;
+    public boolean add(Attendance attendance);
 
-    public Attendance attendanceIdCheck(String id) throws SQLException, ClassNotFoundException;
+    public boolean update(String attendanceId, String studentName, String date, String in_time, String out_time, String userID) throws SQLException, ClassNotFoundException;
+
+    Attendance attendanceIdCheck(String attendanceID) throws SQLException, ClassNotFoundException;
 }

@@ -16,7 +16,7 @@ public class ExamTM implements Comparable<ExamTM> {
 
     @Override
     public int compareTo(ExamTM o) {
-        return this.getExamName().compareTo(o.getExamName());
+        return this.getExamID().compareTo(o.getExamName());
     }
 }
 

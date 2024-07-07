@@ -10,7 +10,12 @@ import java.sql.SQLException;
 public class AddPaymentBOImpl implements AddPaymentBO {
     PaymentDAO paymentDAO = new PaymentDAOImpl();
     public boolean add(Payment payment) throws SQLException, ClassNotFoundException {
-        return paymentDAO.add(payment);
+        try {
+            return paymentDAO.add(payment);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
 
     }
     public Payment paymentIdCheck(String paymentID) throws SQLException, ClassNotFoundException{

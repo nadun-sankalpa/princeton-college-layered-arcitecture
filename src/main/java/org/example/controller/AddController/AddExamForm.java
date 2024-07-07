@@ -47,14 +47,14 @@ public class AddExamForm {
 
 
         Exams exam = addExamBO.examIdCheck(exam_id);
-        if (exam.getExamID().equals(exam_id)) {
+        if (exam != null && exam.getExamID().equals(exam_id)) {
             new Alert(Alert.AlertType.ERROR, "Exam ID already exists!").show();
         }else {
-            boolean isAdded = addExamBO.add(new Exams(exam_id, name, date, time, lecturer_id));
+            boolean isAdded = addExamBO.add(new Exams(exam_id, name, date, time,lecturer_id));
             if (isAdded) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Exam added Successfully!").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Successfully Added").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Something happened!").show();
+                new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
             }
         }
 

@@ -8,10 +8,9 @@ import  java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class ExamsDTO implements Serializable {
-    private String examId;
+    private String examID;
     private String examName;
-    private String examDate;
-    private String examTime;
-    private String courseId;
-    private String batchId;
+    private String Date;
+    private String time;
+    private String lectureID ;
 }

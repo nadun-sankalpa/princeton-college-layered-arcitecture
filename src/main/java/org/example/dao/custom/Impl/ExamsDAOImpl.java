@@ -33,7 +33,11 @@ public class ExamsDAOImpl implements ExamsDAO {
     }
     public Exams examIdCheck(String examID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM exam WHERE exam_id = ?", examID);
-        return new Exams(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        if (rst.next()) {
+            return new Exams(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        } else {
+            return null; // Return null if no course is found
+        }
     }
 
     @Override

@@ -126,7 +126,7 @@ public class AddlecturerForm {
         if (isValidInput(adressPattern,phonePattern,LecturerIdPattern,NamePattern,NicNoPattern)) {
 
             Lecturer lecturer = addLecturerBO.lecturerIdCheck(lecturer_id);
-            if (lecturer.getLecturerID().equals(lecturer_id)) {
+            if (lecturer != null && lecturer.getLecturerID().equals(lecturer_id)) {
                 new Alert(Alert.AlertType.ERROR, "Lecturer ID already exists!").show();
             }else {
                 boolean isAdded = addLecturerBO.add(new Lecturer(lecturer_id, name, cno, address, nic_no));

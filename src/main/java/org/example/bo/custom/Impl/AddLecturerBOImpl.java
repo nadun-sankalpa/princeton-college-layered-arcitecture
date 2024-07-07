@@ -10,7 +10,12 @@ import java.sql.SQLException;
 public class AddLecturerBOImpl implements AddLecturerBO {
    LecturerDAO lecturerDAO = new LecturerDAOImpl();
     public boolean add(Lecturer lecturer) throws SQLException, ClassNotFoundException {
-        return lecturerDAO.add(lecturer);
+        try {
+            return lecturerDAO.add(lecturer);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
 
     }
     public Lecturer lecturerIdCheck(String lecturerID) throws SQLException, ClassNotFoundException{

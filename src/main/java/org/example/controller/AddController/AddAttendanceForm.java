@@ -50,17 +50,16 @@ public class AddAttendanceForm {
         String user_id = txtUserId.getText();
 
         Attendance attendance = addAttendanceBO.attendanceIdCheck(attendance_id);
-        if (attendance.getAttendanceID().equals(attendance_id)) {
+        if (attendance != null && attendance.getAttendanceID().equals(attendance_id)) {
             new Alert(Alert.AlertType.ERROR, "Attendance ID already exists!").show();
         } else {
             boolean isAdded = addAttendanceBO.add(new Attendance(attendance_id, student_name, date, in_time, out_time, user_id));
             if (isAdded) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Attendance saved!").show();
-            }else {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
         }
-
     }
 
     @FXML

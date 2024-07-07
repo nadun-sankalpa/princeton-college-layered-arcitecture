@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.Impl.ScheduleBOImpl;
+import org.example.bo.custom.ScheduleBO;
+import org.example.entity.Schedule;
+import org.example.view.tdm.ScheduleTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ScheduleFormController {
@@ -38,7 +48,38 @@ public class ScheduleFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblSchedule;
+    private TableView<Schedule> tblSchedule;
+
+    private List<ScheduleTM> scheduleList = new ArrayList<ScheduleTM>();
+
+    ScheduleBO scheduleBO = new ScheduleBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        loadScheduleTable();
+    }
+
+    public void loadScheduleTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Schedule> tmList = FXCollections.observableArrayList(scheduleBO.getAll());
+        for (Schedule schedule : tmList) {
+            ScheduleTM scheduleTM = new ScheduleTM(
+                    schedule.getScheduleID(),
+                    schedule.getLecturerID(),
+                    schedule.getModuleName(),
+                    schedule.getDate(),
+                    schedule.getTime()
+            ); scheduleList.add(scheduleTM);
+
+        }
+        tblSchedule.setItems(tmList);
+    }
+    private void setCellValueFactory(){
+     colScheduleId.setCellValueFactory(new PropertyValueFactory<>("scheduleID"));
+     colLecturerId.setCellValueFactory(new PropertyValueFactory<>("lecturerID"));
+     colModuleName.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+     colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+     colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+    }
 
     @FXML
     void btnAddScheduleOnAction(ActionEvent event) throws IOException {

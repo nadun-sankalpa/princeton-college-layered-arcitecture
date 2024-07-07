@@ -11,7 +11,12 @@ public class AddCoursesBOImpl implements AddCoursesBO {
     CoursesDAO coursesDAO = new CoursesDAOImpl();
 
     public boolean add(Courses courses) throws SQLException, ClassNotFoundException {
-        return coursesDAO.add(courses);
+        try {
+            return coursesDAO.add(courses);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public Courses courseIDCheck(String courseID) throws SQLException, ClassNotFoundException {

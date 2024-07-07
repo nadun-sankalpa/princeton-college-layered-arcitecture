@@ -33,7 +33,11 @@ public class LecturerDAOImpl implements LecturerDAO {
     }
     public Lecturer lecturerIdCheck(String lecturerID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM lecturer WHERE lecturer_id = ?", lecturerID);
+        if (rst.next()) {
         return new Lecturer(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+    }else {
+            return null; // Return null if no course is found
+        }
     }
     public int getLecturerCount() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS lecturer_count FROM lecturer");

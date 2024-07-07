@@ -135,15 +135,14 @@ public class AddBatchForm {
         if (isValidInput(BatchIDPattern,BatchNamePattern,BatchRepresenterPattern,MainLecturerPattern,NoLecturersPattern,NoStudentsPattern)) {
 
             Batch batch = addBatchBO.batchIdCheck(batch_id);
-            if (batch.getBatchID().equals(batch_id)){
+            if (batch != null && batch.getBatchID().equals(batch_id)) {
                 new Alert(Alert.AlertType.ERROR, "Batch ID already exists!").show();
-            }else {
+            } else {
                 boolean isAdded = addBatchBO.add(new Batch(batch_id, name, no_lecturers, no_students, main_lecturer, batch_representer));
                 if (isAdded) {
                     new Alert(Alert.AlertType.INFORMATION, "Batch Added Successfully").show();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
-
                 }
             }
 

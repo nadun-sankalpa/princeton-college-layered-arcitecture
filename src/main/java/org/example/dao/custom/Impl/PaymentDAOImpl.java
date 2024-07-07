@@ -67,7 +67,11 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
     public Payment paymentIdCheck(String paymentID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM payment WHERE payment_id = ?", paymentID);
+        if (rst.next()) {
         return new Payment(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
+    }else {
+            return null; // Return null if no course is found
+        }
     }
 
     public  String generateNewId() throws SQLException, ClassNotFoundException {

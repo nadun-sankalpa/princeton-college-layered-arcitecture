@@ -44,7 +44,7 @@ public class AddScheduleForm {
         String lecturer_id = txtLecturerId.getText();
 
         Schedule schedule = addScheduleBO.checkScheduleId(schedule_id);
-        if (schedule.getScheduleID().equals(schedule_id)) {
+        if (schedule != null && schedule.getScheduleID().equals(schedule_id)) {
             new Alert(Alert.AlertType.ERROR, "Schedule ID already exists!").show();
         } else {
             boolean isAdded = addScheduleBO.add(new Schedule(schedule_id, name, date, time, lecturer_id));

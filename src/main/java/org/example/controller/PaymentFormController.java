@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.custom.Impl.PaymentBOImpl;
+import org.example.bo.custom.PaymentBO;
+import org.example.entity.Payment;
+import org.example.view.tdm.PaymentTM;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PaymentFormController {
@@ -41,7 +51,43 @@ public class PaymentFormController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblPayment;
+    private TableView<PaymentTM> tblPayment;
+    private ObservableList<PaymentTM> paymentTMObservableList = FXCollections.observableArrayList();
+
+    private List<PaymentTM> paymentList = new ArrayList<PaymentTM>();
+
+    PaymentBO paymentBO = new PaymentBOImpl();
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+
+        setCellValueFactory();
+        loadPaymentTable();
+    }
+    public void loadPaymentTable() throws SQLException, ClassNotFoundException {
+        ObservableList<Payment> tmList = FXCollections.observableArrayList(paymentBO.getAll());
+        for (Payment p : tmList) {
+            PaymentTM paymentTM = new PaymentTM(
+                    p.getPaymentID(),
+                    p.getAmount(),
+                    p.getDate(),
+                    p.getStudentID(),
+                    p.getUserID(),
+                    p.getCourseID()
+            );
+            paymentTMObservableList.add(paymentTM);
+        }
+
+       tblPayment.setItems(paymentTMObservableList);
+    }
+
+    public void setCellValueFactory() {
+        colPaymentID.setCellValueFactory(new PropertyValueFactory<>("paymentID"));
+        colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        colCourseId.setCellValueFactory(new PropertyValueFactory<>("courseID"));
+    }
 
 
     @FXML

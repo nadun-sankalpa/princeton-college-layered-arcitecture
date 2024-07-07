@@ -40,14 +40,31 @@ public class AttendanceDAOImpl implements AttendanceDAO {
         return false;
     }
 
+    @Override
     public Attendance attendanceIdCheck(String attendanceID) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM attendance WHERE attendance_id = ?", attendanceID);
 
-        return new Attendance(rst.getString("attendance_id"), rst.getString("student_name"), rst.getString("date"), rst.getString("in_time"), rst.getString("out_time"), rst.getString("user_id"));
+            ResultSet rst = SQLUtil.execute("SELECT attendance_id, student_name, date, in_time, out_time, user_id FROM attendance WHERE attendance_id = ?", attendanceID);
 
+            if (rst.next()) {
+                return new Attendance(
+                        rst.getString("attendance_id"),
+                        rst.getString("student_name"),
+                        rst.getString("date"),
+                        rst.getString("in_time"),
+                        rst.getString("out_time"),
+                        rst.getString("user_id")
+                );
+            } else {
+                return null; // Return null if no record is found
+            }
+        }
 
     }
-}
+
+
+
+
+
 
 
 

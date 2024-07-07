@@ -55,37 +55,36 @@ public class AddPaymentForm {
         String course_id = txtCourseId.getText();
 
         Payment payment = addPaymentBO.paymentIdCheck(payment_id);
-        if (payment.getPaymentID().equals(payment_id)) {
+        if (payment != null && payment.getPaymentID().equals(payment_id)) {
             new Alert(Alert.AlertType.ERROR, "Payment ID already exists!").show();
         } else {
             boolean isAdded = addPaymentBO.add(new Payment(payment_id, amount, date, student_id, user_id, course_id));
             if (isAdded) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Payment added Successfully!").show();
-            }else{
-            new Alert(Alert.AlertType.ERROR, "Something happened!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Something happened!").show();
+            }
+
+
+            JasperDesign jasperDesign =
+                    JRXmlLoader.load(getClass().getResourceAsStream("/Report/PaymentReport.jrxml"));
+
+            JasperReport jasperReport =
+                    JasperCompileManager.compileReport(jasperDesign);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("CustomerID", txtStudentId.getText());
+            data.put("NetTotal", "3000");
+
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(
+                            jasperReport,
+                            data,
+                            DbConnection.getInstance().getConnection());
+
+            JasperViewer.viewReport(jasperPrint, false);
+
         }
-
-
-        }
-
-        JasperDesign jasperDesign =
-                JRXmlLoader.load(getClass().getResourceAsStream("/Report/PaymentReport.jrxml"));
-
-        JasperReport jasperReport =
-                JasperCompileManager.compileReport(jasperDesign);
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("CustomerID",txtStudentId.getText());
-        data.put("NetTotal","3000");
-
-        JasperPrint jasperPrint =
-                JasperFillManager.fillReport(
-                        jasperReport,
-                        data,
-                        DbConnection.getInstance().getConnection());
-
-        JasperViewer.viewReport(jasperPrint,false);
-
     }
 
 

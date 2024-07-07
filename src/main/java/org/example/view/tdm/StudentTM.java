@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class StudentTM implements Comparable<StudentTM> {
-    private String ScheduleID;
-    private String ModuleName;
-    private String Date;
-    private String Time;
-    private String LecturerID;
-
+    private String studentID;
+    private String name;
+    private String contactNo;
+    private String address;
+    private String nicNo;
+    private String userID;
     @Override
-    public int compareTo(StudentTM o) {
-        return this.getModuleName().compareTo(o.getModuleName());
+    public int compareTo(StudentTM o) {return this.studentID.compareTo(o.getStudentID());
     }
 }

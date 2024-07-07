@@ -33,8 +33,13 @@ public class CoursesDAOImpl implements CoursesDAO {
 
     public Courses courseIDCheck(String courseID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM course WHERE course_id = ?", courseID);
-        return new Courses(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        if (rst.next()) {
+            return new Courses(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        } else {
+            return null; // Return null if no course is found
+        }
     }
+
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;

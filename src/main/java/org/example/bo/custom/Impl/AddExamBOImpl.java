@@ -10,7 +10,12 @@ import java.sql.SQLException;
 public class AddExamBOImpl implements AddExamBO {
     ExamsDAO examDAO = new ExamsDAOImpl();
     public boolean add(Exams exam) throws SQLException, ClassNotFoundException {
-        return examDAO.add(exam);
+        try {
+            return examDAO.add(exam);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     public Exams examIdCheck(String examID) throws SQLException, ClassNotFoundException {
         return examDAO.examIdCheck(examID);

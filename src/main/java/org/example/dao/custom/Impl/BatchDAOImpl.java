@@ -19,22 +19,25 @@ public class BatchDAOImpl implements BatchDAO {
         return allBatch;
     }
     public boolean add(Batch entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO batch VALUES(?,?,?,?,?,?)", entity.getBatchID(), entity.getBatchName(), entity.getNoOfStudents(), entity.getNoOfLecturers(), entity.getMainLecturer(), entity.getBatchReprsenter());
+        return SQLUtil.execute("INSERT INTO batch VALUES(?,?,?,?,?,?)", entity.getBatchID(), entity.getBatchName(), entity.getNoOfStudents(), entity.getNoOfLecturers(), entity.getMainLecturer(), entity.getBatchRepresenter());
     }
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM batch WHERE batch_id = ?", id);
 
     }
-    public boolean update(String batchId, String batchName, String noOfStudents, String noOfLecturers, String mainLecturer, String batchReprsenter) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE batch SET batch_name = ?, no_of_students = ?, no_of_lecturers = ?,main_lecturer = ?, batch_representer = ?  WHERE batch_id = ?", batchName, noOfStudents, noOfLecturers, mainLecturer, batchReprsenter, batchId);
+    public boolean update(String batchId, String batchName, String noOfStudents, String noOfLecturers, String mainLecturer, String batchRepresenter) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE batch SET batch_name = ?, no_of_students = ?, no_of_lecturers = ?,main_lecturer = ?, batch_representer = ?  WHERE batch_id = ?", batchName, noOfStudents, noOfLecturers, mainLecturer, batchRepresenter, batchId);
     }
     public Batch batchIdCheck(String batchID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM batch WHERE batch_id = ?", batchID);
-
+        if (rst.next()) {
             return new Batch(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
-
-
+        } else {
+            // Handle the case where no batch is found
+            return null;
+        }
     }
+
     public int getBatchCount() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS batch_count FROM batch");
         int batchCount = 0;

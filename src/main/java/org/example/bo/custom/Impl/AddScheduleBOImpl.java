@@ -10,7 +10,12 @@ import java.sql.SQLException;
 public class AddScheduleBOImpl implements AddScheduleBO {
     ScheduleDAO scheduleDAO = new ScheduleDAOImpl();
     public boolean add(Schedule schedule) throws SQLException, ClassNotFoundException {
-        return scheduleDAO.add(schedule);
+        try {
+            return scheduleDAO.add(schedule);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
 
     }
     public Schedule checkScheduleId(String id) throws SQLException, ClassNotFoundException{

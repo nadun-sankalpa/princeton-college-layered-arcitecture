@@ -31,7 +31,11 @@ public class EmployesDAOImpl implements EmployesDAO {
     }
     public Employes employeeIdCheck(String employeeID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM employee WHERE employee_id = ?", employeeID);
-        return new Employes(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        if (rst.next()) {
+            return new Employes(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+        } else {
+            return null; // Return null if no course is found
+        }
     }
     public int getEmployeeCount() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS employee_count FROM employee");

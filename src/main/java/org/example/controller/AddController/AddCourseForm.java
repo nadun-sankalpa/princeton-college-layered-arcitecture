@@ -115,16 +115,17 @@ public class AddCourseForm {
 
         if (isValidInput(CourseFeePattern,CourseIdPattern,CourseNamePattern,DurationPattern,MainLecturerPattern)) {
             Courses courses = addCoursesBO.courseIDCheck(course_id);
-            if (courses.getCourseID().equals(course_id)) {
+            if (courses != null && courses.getCourseID().equals(course_id)) {
                 new Alert(Alert.AlertType.ERROR, "Course ID already exists").show();
             } else {
                 boolean isAdded = addCoursesBO.add(new Courses(course_id, name, duration, main_lecturer, course_fee));
                 if (isAdded) {
                     new Alert(Alert.AlertType.INFORMATION, "Course Added Successfully").show();
-                }else {
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
                 }
             }
+
         }
     }
 

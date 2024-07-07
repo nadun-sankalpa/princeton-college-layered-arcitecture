@@ -4,26 +4,23 @@ public class Exams {
 
     private String examID;
     private String examName;
-    private String lectureID ;
-
-    private String time;
     private String Date;
+    private String time;
+    private String lectureID ;
 
 
     public Exams() {
     }
 
-    public Exams(String examID, String examName, String lectureID, String time, String date) {
+    public Exams(String examID, String examName, String time, String date, String lectureID) {
         this.examID = examID;
         this.examName = examName;
-        this.lectureID = lectureID;
-        this.time = time;
         this.Date = date;
+        this.time = time;
+        this.lectureID = lectureID;
     }
 
-    public String getExamID() {
-        return examID;
-    }
+    public String getExamID() {return examID;}
 
     public void setExamID(String examID) {
         this.examID = examID;
@@ -37,12 +34,12 @@ public class Exams {
         this.examName = examName;
     }
 
-    public String getLectureID() {
-        return lectureID;
+    public String getDate() {
+        return Date;
     }
 
-    public void setLectureID(String lectureID) {
-        this.lectureID = lectureID;
+    public void setDate(String date) {
+        this.Date = date;
     }
 
     public String getTime() {
@@ -53,11 +50,12 @@ public class Exams {
         this.time = time;
     }
 
-    public String getDate() {
-        return Date;
+
+    public String getLectureID() {
+        return lectureID;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setLectureID(String lectureID) {
+        this.lectureID = lectureID;
     }
 }

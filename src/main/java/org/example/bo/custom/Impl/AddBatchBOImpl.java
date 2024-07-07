@@ -14,7 +14,12 @@ public Batch batchIdCheck(String batchID) throws SQLException, ClassNotFoundExce
     return batchDAO.batchIdCheck(batchID);
 }
 public boolean add(Batch batch) throws SQLException, ClassNotFoundException {
-    return batchDAO.add(batch);
+    try {
+        return batchDAO.add(batch);
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        return false;
+    }
 }
 
 }

@@ -54,9 +54,11 @@ public class BatchFormController {
     private AnchorPane rootNode1;
 
     @FXML
-    private TableView<Batch> tblBatch;
+    private TableView<BatchTM> tblBatch;
 
     BatchBO batchBO = new BatchBOImpl();
+
+    private ObservableList<BatchTM> batchTMObservableList = FXCollections.observableArrayList();
 
     private List<BatchTM> batchList = new ArrayList<BatchTM>();
 
@@ -72,23 +74,24 @@ public class BatchFormController {
            BatchTM batchTM = new BatchTM(
                    b.getBatchID(),
                    b.getBatchName(),
-                   b.getBatchReprsenter(),
-                   b.getMainLecturer(),
+                   b.getNoOfStudents(),
                    b.getNoOfLecturers(),
-                   b.getNoOfStudents()
+                   b.getMainLecturer(),
+                   b.getBatchRepresenter()
            );
-           batchList.add(batchTM);
+           batchTMObservableList.add(batchTM);
        }
-       tblBatch.setItems(tmList);
+        tblBatch.setItems(batchTMObservableList);
     }
     private void setCellValueFactory() {
 
         colBatchId.setCellValueFactory(new PropertyValueFactory<>("batchID"));
         colBatchName.setCellValueFactory(new PropertyValueFactory<>("batchName"));
-        colBatchRepresenter.setCellValueFactory(new PropertyValueFactory<>("batchReprsenter"));
-        colMainLecturer.setCellValueFactory(new PropertyValueFactory<>("mainLecturer"));
-        colNoOfLecturers.setCellValueFactory(new PropertyValueFactory<>("noOfLecturers"));
         colNoOfStudents.setCellValueFactory(new PropertyValueFactory<>("noOfStudents"));
+        colNoOfLecturers.setCellValueFactory(new PropertyValueFactory<>("noOfLecturers"));
+        colMainLecturer.setCellValueFactory(new PropertyValueFactory<>("mainLecturer"));
+        colBatchRepresenter.setCellValueFactory(new PropertyValueFactory<>("batchRepresenter"));
+
     }
     @FXML
     void btnAddBatchOnAction(ActionEvent event) throws IOException {

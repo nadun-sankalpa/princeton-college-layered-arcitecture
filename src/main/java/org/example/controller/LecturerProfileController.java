@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -48,7 +49,7 @@ public class LecturerProfileController {
     private AnchorPane rootNode;
 
     @FXML
-    private TableView<?> tblLecturer;
+    private TableView<Lecturer> tblLecturer;
 
     @FXML
     private TextField txtSearch;
@@ -58,7 +59,8 @@ public class LecturerProfileController {
     LecturerBO lecturerBO = new LecturerBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
-
+        setCellValueFactory();
+        loadLecturerTable();
     }
     private void loadLecturerTable() throws SQLException, ClassNotFoundException {
         ObservableList<Lecturer> tmList = FXCollections.observableArrayList(lecturerBO.getAll());
@@ -72,6 +74,16 @@ public class LecturerProfileController {
             );
             lecturerList.add(lecturerTM);
         }
+
+        tblLecturer.setItems(tmList);
+    }
+
+    private void setCellValueFactory() {
+        colLecturerId.setCellValueFactory(new PropertyValueFactory<>("LecturerID"));
+        colLecturerName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colContactNo.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colNicNumber.setCellValueFactory(new PropertyValueFactory<>("nicNo"));
     }
 
     @FXML

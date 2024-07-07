@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class PaymentTM implements Comparable<PaymentTM> {
-    String PaymentID;
-    String Amount;
-    String Date;
-    String StudentID;
-    String UserID;
-    String CourseID;
+    private String paymentID;
+    private String amount;
+    private String Date;
+    private String studentID;
+    private String userID;
+    private String courseID;
 
     @Override
     public int compareTo(PaymentTM o) {

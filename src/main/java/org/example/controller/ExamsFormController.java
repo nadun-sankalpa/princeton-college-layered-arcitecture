@@ -51,7 +51,8 @@ public class ExamsFormController {
     private AnchorPane rootNode1;
 
     @FXML
-    private TableView<Exams> tblExam;
+    private TableView<ExamTM> tblExam;
+    private ObservableList<ExamTM> examTMObservableList = FXCollections.observableArrayList();
 
     private List<ExamTM> examList = new ArrayList<ExamTM>();
 
@@ -60,7 +61,6 @@ public class ExamsFormController {
     public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();
         loadExamTable();
-
     }
 
     private void loadExamTable() throws SQLException, ClassNotFoundException {
@@ -73,12 +73,13 @@ public class ExamsFormController {
                     e.getTime(),
                     e.getLectureID()
             );
-            examList.add(examTM);
+            examTMObservableList.add(examTM);
         }
-            tblExam.setItems(tmList);
-        }
-    private void setCellValueFactory() {
+        tblExam.setItems(examTMObservableList);
 
+    }
+
+    private void setCellValueFactory() {
         colExamId.setCellValueFactory(new PropertyValueFactory<>("examID"));
         colExamName.setCellValueFactory(new PropertyValueFactory<>("examName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));

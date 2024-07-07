@@ -125,7 +125,7 @@ public class AddEmployeeForm {
         if (isValidInput(adressPattern,phonePattern,EmployeeIdPattern,NamePattern,NicNoPattern)) {
 
              Employes employes = addEmployeeBO.employeeIdCheck(employee_id);
-             if (employes.getEmployeeID().equals(employee_id)) {
+             if (employes != null && employes.getEmployeeID().equals(employee_id)) {
                  new Alert(Alert.AlertType.ERROR, "Employee Id Already Exists").show();
              }else {
                  boolean isAdded = addEmployeeBO.add(new Employes(employee_id, name, cno, address, nic_no));

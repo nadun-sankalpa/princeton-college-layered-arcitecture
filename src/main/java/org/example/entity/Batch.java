@@ -7,16 +7,17 @@ public class Batch {
     private String noOfStudents;
     private String noOfLecturers;
     private String mainLecturer;
-    private String batchReprsenter;
-    public Batch(String batchId, String batchName, String noOfStudents, String noOfLecturers, String mainLecturer, String batchRepresenter){
+    private String batchRepresenter;
+
+    public Batch(){
     }
-    public Batch(String batchID, String batchName, int noOfStudents, int noOfLecturers, String mainLecturer, String batchReprsenter) {
+    public Batch(String batchID, String batchName, String noOfStudents, String noOfLecturers, String mainLecturer, String batchReprsenter) {
         this.batchID = batchID;
         this.batchName = batchName;
         this.noOfStudents = String.valueOf(noOfStudents);
         this.noOfLecturers = String.valueOf(noOfLecturers);
         this.mainLecturer = mainLecturer;
-        this.batchReprsenter = batchReprsenter;
+        this.batchRepresenter = batchReprsenter;
     }
 
     public String getBatchID() {
@@ -59,12 +60,12 @@ public class Batch {
         this.mainLecturer = mainLecturer;
     }
 
-    public String getBatchReprsenter() {
-        return batchReprsenter;
+    public String getBatchRepresenter() {
+        return batchRepresenter;
     }
 
-    public void setBatchReprsenter(String batchReprsenter) {
-        this.batchReprsenter = batchReprsenter;
+    public void setBatchRepresenter(String batchReprsenter) {
+        this.batchRepresenter = batchReprsenter;
     }
 
 }
