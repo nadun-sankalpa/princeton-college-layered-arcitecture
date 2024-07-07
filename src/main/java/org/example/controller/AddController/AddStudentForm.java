@@ -254,7 +254,7 @@ public class AddStudentForm {
 
         @FXML
         void btnExitOnAction (ActionEvent event) throws IOException {
-            AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/student_form.fxml")));
+            AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org.example/student_form.fxml")));
             Stage stage = (Stage) rootNode.getScene().getWindow();
 
             stage.setScene(new Scene(anchorPane));

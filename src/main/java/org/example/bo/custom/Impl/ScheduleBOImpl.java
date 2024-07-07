@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ScheduleBOImpl implements ScheduleBO {
-    ScheduleDAO scheduleDAO = (ScheduleDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.SCHEDULE);
+    ScheduleDAO scheduleDAO = (ScheduleDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.Schedule);
     public ArrayList<Schedule> getAll() throws SQLException, ClassNotFoundException{
         return scheduleDAO.getAll();
     }

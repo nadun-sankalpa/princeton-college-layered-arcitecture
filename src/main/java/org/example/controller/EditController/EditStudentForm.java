@@ -2,13 +2,18 @@ package org.example.controller.EditController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.example.bo.custom.EditStudentBO;
 import org.example.bo.custom.Impl.Edit_Impl.EditStudentBOImpl;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class EditStudentForm {
     @FXML
@@ -63,6 +68,16 @@ public class EditStudentForm {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+    }
+    @FXML
+    void btnExitOnAction(ActionEvent event) throws IOException {
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org.example/student_form.fxml")));
+        Stage stage = (Stage) rootNode.getScene().getWindow();
+
+        stage.setScene(new Scene(anchorPane));
+        stage.setTitle("Schedule Form");
+        stage.centerOnScreen();
 
     }
 }

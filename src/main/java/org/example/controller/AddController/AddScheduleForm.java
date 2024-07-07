@@ -60,7 +60,7 @@ public class AddScheduleForm {
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/schedule_form.fxml")));
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org.example/schedule_form.fxml")));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));

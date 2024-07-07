@@ -16,5 +16,8 @@ public class AddPaymentBOImpl implements AddPaymentBO {
     public Payment paymentIdCheck(String paymentID) throws SQLException, ClassNotFoundException{
         return paymentDAO.paymentIdCheck(paymentID);
     }
+    public  String generateNewId() throws SQLException, ClassNotFoundException {
+        return paymentDAO.generateNewId();
+    }
 }
 

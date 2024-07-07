@@ -73,7 +73,7 @@ public class EditPaymentForm {
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/payment_form.fxml")));
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org.example/payment_form.fxml")));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));

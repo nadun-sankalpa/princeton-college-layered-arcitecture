@@ -38,7 +38,7 @@ public class AddAttendanceForm {
     @FXML
     private TextField txtUserId;
 
-     AddAttendanceBO addAttendanceBO = new AddAttendanceBOImpl();
+    AddAttendanceBO addAttendanceBO = new AddAttendanceBOImpl();
 
     @FXML
     void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -65,7 +65,7 @@ public class AddAttendanceForm {
 
     @FXML
     void btnExitOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/attendance_form.fxml")));
+        AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org.example/attendance_form.fxml")));
         Stage stage = (Stage) rootNode.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
@@ -74,3 +74,4 @@ public class AddAttendanceForm {
 
     }
 }
+

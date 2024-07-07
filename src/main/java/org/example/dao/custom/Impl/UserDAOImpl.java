@@ -11,7 +11,15 @@ import java.util.ArrayList;
 public class UserDAOImpl implements UserDAO {
     public static User checkCredential(String userId, String password) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM user WHERE user_id = ? AND password = ?", userId, password);
-        return new User(rst.getString("user_id"), rst.getString("user_name"), rst.getString("contact_no"), rst.getString("password"), rst.getString("address"));
+        if (rst.next()) { // Ensure the cursor is moved to the first row
+            return new User(rst.getString("user_id"),
+                    rst.getString("name"),
+                    rst.getString("contact_no"),
+                    rst.getString("password"),
+                    rst.getString("address"));
+        } else {
+            return null; // Return null if no user is found
+        }
     }
 
     public ArrayList<User> getAll() {
@@ -19,7 +27,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     public boolean add(User user) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO user VALUES(?,?,?,?,?)", user.getUserId(), user.getUserName(), user.getContactNumber(), user.getPassword(), user.getAddress());
+        return SQLUtil.execute("INSERT INTO user VALUES(?,?,?,?,?)",
+                user.getUserId(),
+                user.getUserName(),
+                user.getContactNumber(),
+                user.getPassword(),
+                user.getAddress());
     }
 
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
@@ -35,6 +48,4 @@ public class UserDAOImpl implements UserDAO {
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;
     }
-
-
 }

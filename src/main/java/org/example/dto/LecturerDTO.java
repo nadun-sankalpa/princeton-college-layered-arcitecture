@@ -8,9 +8,9 @@ import  java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class LecturerDTO implements Serializable {
-    private String userId;
-    private String userName;
-    private String nicNumber;
-    private String contactNo;
-    private String address;
+    private String LecturerID;
+    private String LecturerName;
+    private String contactNumber;
+    private String Address;
+    private String NicNumber;
 }

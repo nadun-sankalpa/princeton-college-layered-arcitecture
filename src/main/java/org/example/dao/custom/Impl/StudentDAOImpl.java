@@ -37,6 +37,16 @@ public class StudentDAOImpl implements StudentDAO {
         }
         return null;
     }
+
+    public int getStudentCount() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS student_count FROM student");
+        int studentCount = 0;
+        if (rst.next()) {
+            studentCount = rst.getInt("student_count");
+        }
+        return studentCount;
+    }
+
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {
         return false;

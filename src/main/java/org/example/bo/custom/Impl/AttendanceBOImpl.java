@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AttendanceBOImpl implements AttendanceBO {
-    AttendanceDAO attendanceDAO = (AttendanceDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.ATTENDANCE);
+    AttendanceDAO attendanceDAO = (AttendanceDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.Attendance);
     public ArrayList<Attendance> getAll() throws SQLException, ClassNotFoundException {
         return attendanceDAO.getAll();
     }

@@ -35,6 +35,15 @@ public class BatchDAOImpl implements BatchDAO {
 
 
     }
+    public int getBatchCount() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS batch_count FROM batch");
+        int batchCount = 0;
+        if (rst.next()) {
+            batchCount = rst.getInt("batch_count");
+        }
+        return batchCount;
+    }
+
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

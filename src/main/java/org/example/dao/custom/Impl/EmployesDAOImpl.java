@@ -33,6 +33,15 @@ public class EmployesDAOImpl implements EmployesDAO {
         ResultSet rst = SQLUtil.execute("SELECT * FROM employee WHERE employee_id = ?", employeeID);
         return new Employes(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
     }
+    public int getEmployeeCount() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS employee_count FROM employee");
+        int employeeCount = 0;
+        if (rst.next()) {
+            employeeCount = rst.getInt("employee_count");
+        }
+        return employeeCount;
+    }
+
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

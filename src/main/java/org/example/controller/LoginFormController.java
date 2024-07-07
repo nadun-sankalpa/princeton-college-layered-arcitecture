@@ -43,49 +43,49 @@ public class LoginFormController {
 
         try {
             User user = loginBO.checkCredential(userId, pw);
-            if (user.getUserId().equals(userId)) {
+            if (user != null) {
                 String dbpw = user.getPassword();
-
                 if (dbpw.equals(pw)) {
                     navigateToTheDashboard();
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
+                    showAlert("Password is incorrect!");
                 }
-                }else {
-                    new Alert(Alert.AlertType.ERROR, "User Id is incorrect!").show();
-
-                }
-            } catch (SQLException e) {
-            throw new RuntimeException(e);
+            } else {
+                showAlert("User Id is incorrect!");
+            }
+        } catch (SQLException e) {
+            showAlert("Database error: " + e.getMessage());
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
-            throw new RuntimeException(e);
+            showAlert("Something went wrong!");
+            e.printStackTrace();
         }
-
     }
-
 
     private void navigateToTheDashboard() throws IOException {
         AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/org.example/dashboard_form.fxml"));
-
         Scene scene = new Scene(rootNode);
-
         Stage stage = (Stage) this.rootNode.getScene().getWindow();
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.setTitle("Dashboard Form");
         stage.show();
     }
-    public void linkRegistrationOnAction(ActionEvent actionEvent) throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/org/example/registration_form.fxml"));
 
+    public void linkRegistrationOnAction(ActionEvent actionEvent) throws IOException {
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/org.example/registration_form.fxml"));
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
-
         stage.setTitle("Registration Form");
-
         stage.show();
     }
 
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Login Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

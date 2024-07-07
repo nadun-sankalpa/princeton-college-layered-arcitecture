@@ -35,6 +35,16 @@ public class LecturerDAOImpl implements LecturerDAO {
         ResultSet rst = SQLUtil.execute("SELECT * FROM lecturer WHERE lecturer_id = ?", lecturerID);
         return new Lecturer(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
     }
+    public int getLecturerCount() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS lecturer_count FROM lecturer");
+        int lecturerCount = 0;
+        if (rst.next()) {
+            lecturerCount = rst.getInt("lecturer_count");
+        }
+        return lecturerCount;
+    }
+
+
 
     @Override
     public boolean generateNewID() throws SQLException, ClassNotFoundException {

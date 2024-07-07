@@ -70,7 +70,7 @@ public class PaymentDAOImpl implements PaymentDAO {
         return new Payment(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
     }
 
-    public static String generateNewId() throws SQLException, ClassNotFoundException {
+    public  String generateNewId() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT payment_id FROM payment ORDER BY payment_id DESC LIMIT 1");
         if (rst.next()) {
             int id = Integer.parseInt(rst.getString("payment_id"));
@@ -80,7 +80,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
         return "P-001";
     }
-    public static XYChart.Series IncomeChart(XYChart.Series chart) {
+    public  XYChart.Series IncomeChart(XYChart.Series chart) {
         String sql = "SELECT date , SUM(amount) FROM payment GROUP BY date ORDER BY TIMESTAMP(date)";
 
         try {
@@ -94,4 +94,5 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
         return chart;
     }
+
 }

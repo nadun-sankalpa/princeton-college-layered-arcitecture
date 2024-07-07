@@ -7,7 +7,7 @@ import org.example.dao.custom.EmployesDAO;
 import java.sql.SQLException;
 
 public class EditEmployeeBOImpl implements EditEmployeeBO {
-    EmployesDAO employesDAO = (EmployesDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.EMPLOYEES);
+    EmployesDAO employesDAO = (EmployesDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.Employes);
 
     public boolean update(String employeeID, String name, String contactNo, String address, String nicNo) throws SQLException, ClassNotFoundException{
         return employesDAO.update(employeeID, name, contactNo, address, nicNo);

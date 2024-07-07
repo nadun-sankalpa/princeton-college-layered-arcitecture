@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BatchBOImpl implements BatchBO {
-    BatchDAO batchDAO = (BatchDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.BATCH);
+    BatchDAO batchDAO = (BatchDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.Batch);
     public ArrayList<Batch> getAll() throws SQLException, ClassNotFoundException {
         return batchDAO.getAll();
     }
