@@ -8,8 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddStudentBO;
-import org.example.bo.custom.Impl.AddStudentBOImpl;
 import org.example.dao.custom.Impl.PaymentDAOImpl;
 import org.example.entity.Payment;
 import org.example.entity.Student;
@@ -49,7 +49,7 @@ public class AddStudentForm {
     @FXML
     private TextField txtCourseId;
 
-    AddStudentBO addStudentBO = new AddStudentBOImpl();
+    AddStudentBO addStudentBO = (AddStudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Student);
 
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {

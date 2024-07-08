@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditExamBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditExamBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class EditExamForm {
     @FXML
     private TextField txtTime;
 
-    EditExamBO editExamBO = new EditExamBOImpl();
+    EditExamBO editExamBO = (EditExamBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Exams);
 
     @FXML
     void btnEditOnAction(ActionEvent event) {

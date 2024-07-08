@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddLecturerBO;
-import org.example.bo.custom.Impl.AddLecturerBOImpl;
 import org.example.entity.Lecturer;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class AddlecturerForm {
     @FXML
     private TextField txtNicNo;
 
-    AddLecturerBO addLecturerBO = new AddLecturerBOImpl();
+    AddLecturerBO addLecturerBO = (AddLecturerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Lecturer);
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {
         Pattern adressPattern = Pattern.compile( "^([A-z0-9]|[-/,.@+]|\\\\s){4,}$");

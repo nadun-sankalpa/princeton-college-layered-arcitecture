@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditBatchBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditBatchBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class EditBatchForm {
     private TextField txtNoStudents;
 
 
-    EditBatchBO editBatchBO = new EditBatchBOImpl();
+    EditBatchBO editBatchBO = (EditBatchBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Batch);
 
     @FXML
     void btnEditOnAction(ActionEvent event) {

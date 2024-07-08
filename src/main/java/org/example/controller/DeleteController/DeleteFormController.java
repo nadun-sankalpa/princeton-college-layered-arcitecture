@@ -4,23 +4,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.*;
-import org.example.bo.custom.Impl.*;
 
 import java.sql.SQLException;
 
 public class DeleteFormController {
 
-    DeleteAttendanceBO deleteAttendanceBO = new DeleteAttendanceBOImpl();
-    DeleteBatchBO deleteBatchBO = new DeleteBatchBOImpl();
-    DeleteCoursesBO deleteCoursesBO = new DeleteCoursesBOImpl();
-    DeleteEmployeeBO deleteEmployeeBO = new DeleteEmployeeBOImpl();
-    DeleteExamBO deleteExamBO = new DeleteExamBOImpl();
-    DeleteLectureBO deleteLectureBO = new DeleteLecturerBOImpl();
-    DeletePaymentBO deletePaymentBO = new DeletePaymentBOImpl();
-    DeleteStudentBO deleteStudentBO = new DeleteStudentBOImpl();
-    DeleteScheduleBO deleteScheduleBO = new DeleteScheduleBOImpl();
-
+    DeleteAttendanceBO deleteAttendanceBO = (DeleteAttendanceBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Attendance);
+    DeleteBatchBO deleteBatchBO = (DeleteBatchBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Batch);
+    DeleteCoursesBO deleteCoursesBO = (DeleteCoursesBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Courses);
+    DeleteEmployeeBO deleteEmployeeBO = (DeleteEmployeeBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Employes);
+    DeleteExamBO deleteExamBO = (DeleteExamBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Exams);
+    DeleteLectureBO deleteLectureBO = (DeleteLectureBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Lecture);
+    DeletePaymentBO deletePaymentBO = (DeletePaymentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Payment);
+    DeleteStudentBO deleteStudentBO = (DeleteStudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Student);
+    DeleteScheduleBO deleteScheduleBO = (DeleteScheduleBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Delete_Schedule);
 
     @FXML
     private TextField txtId;

@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditStudentBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditStudentBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class EditStudentForm {
     @FXML
     private TextField txtUserId;
 
-    EditStudentBO editStudentBO = new EditStudentBOImpl();
+    EditStudentBO editStudentBO = (EditStudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Student);
 
     @FXML
     void btnEditOnAction(ActionEvent event) {

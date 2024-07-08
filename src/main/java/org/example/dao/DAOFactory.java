@@ -15,7 +15,7 @@ public class DAOFactory {
         return daoFactory;
     }
     public enum DAOTypes{
-        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule,Student
+        Attendance,Batch,Course,Employes,Exams,Lecture,Payment,Schedule,Student,User
     }
 
 
@@ -39,6 +39,8 @@ public class DAOFactory {
                 return new ScheduleDAOImpl();
             case Student:
                 return new StudentDAOImpl();
+            case User:
+                return new UserDAOImpl();
             default:
                 return null;
         }

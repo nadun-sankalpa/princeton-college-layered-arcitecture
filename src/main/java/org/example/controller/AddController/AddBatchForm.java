@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddBatchBO;
-import org.example.bo.custom.Impl.AddBatchBOImpl;
 import org.example.entity.Batch;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class AddBatchForm {
 
     @FXML
     private TextField txtNoStudents;
-    AddBatchBO addBatchBO = new AddBatchBOImpl();
+    AddBatchBO addBatchBO = (AddBatchBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Batch);
 
 
     @FXML

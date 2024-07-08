@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddScheduleBO;
-import org.example.bo.custom.Impl.AddScheduleBOImpl;
 import org.example.entity.Schedule;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class AddScheduleForm {
 
     @FXML
     private TextField txtscheduleId;
-    AddScheduleBO addScheduleBO = new AddScheduleBOImpl();
+    AddScheduleBO addScheduleBO = (AddScheduleBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Schedule);
     @FXML
     void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String schedule_id = txtscheduleId.getText();

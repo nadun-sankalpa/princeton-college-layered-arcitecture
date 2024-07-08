@@ -13,8 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.ExamBO;
-import org.example.bo.custom.Impl.ExamBOImpl;
 import org.example.entity.Exams;
 import org.example.view.tdm.ExamTM;
 
@@ -56,7 +56,7 @@ public class ExamsFormController {
 
     private List<ExamTM> examList = new ArrayList<ExamTM>();
 
-    ExamBO examBO = new ExamBOImpl();
+    ExamBO examBO = (ExamBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Exams);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();

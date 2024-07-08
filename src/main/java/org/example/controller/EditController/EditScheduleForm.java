@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditScheduleBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditScheduleBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class EditScheduleForm {
     @FXML
     private TextField txtscheduleId;
 
-    EditScheduleBO editScheduleBO = new EditScheduleBOImpl();
+    EditScheduleBO editScheduleBO = (EditScheduleBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Schedule);
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String schedule_id = txtscheduleId.getText();

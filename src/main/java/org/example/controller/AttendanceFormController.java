@@ -13,8 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AttendanceBO;
-import org.example.bo.custom.Impl.AttendanceBOImpl;
 import org.example.entity.Attendance;
 import org.example.view.tdm.AttendanceTM;
 
@@ -55,7 +55,7 @@ public class AttendanceFormController {
 
     private List<AttendanceTM> attendanceList = new ArrayList<AttendanceTM>();
 
-    AttendanceBO attendanceBO = new AttendanceBOImpl();
+    AttendanceBO attendanceBO = (AttendanceBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Attendance);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();

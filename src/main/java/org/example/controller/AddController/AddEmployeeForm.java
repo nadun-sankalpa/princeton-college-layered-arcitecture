@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddEmployeeBO;
-import org.example.bo.custom.Impl.AddEmployeeBOImpl;
 import org.example.entity.Employes;
 
 import java.io.IOException;
@@ -37,15 +37,7 @@ public class AddEmployeeForm {
     @FXML
     private TextField txtNicNo;
 
-    AddEmployeeBO addEmployeeBO = new AddEmployeeBOImpl() {
-
-
-
-        @Override
-        public Employes employeeIdCheck(String employeeID) throws SQLException, ClassNotFoundException {
-            return null;
-        }
-    };
+    AddEmployeeBO addEmployeeBO = (AddEmployeeBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Employee);
 
     @FXML
     void txtAddressReleasedOnAction(KeyEvent event) {

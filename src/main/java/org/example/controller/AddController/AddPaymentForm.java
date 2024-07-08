@@ -12,8 +12,8 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddPaymentBO;
-import org.example.bo.custom.Impl.AddPaymentBOImpl;
 import org.example.db.DbConnection;
 import org.example.entity.Payment;
 
@@ -44,7 +44,7 @@ public class AddPaymentForm {
 
     @FXML
     private TextField txtUserID;
-    AddPaymentBO addPaymentBO = new AddPaymentBOImpl();
+    AddPaymentBO addPaymentBO = (AddPaymentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Payment);
     @FXML
     void btnAddOnAction(ActionEvent event) throws JRException, SQLException, ClassNotFoundException {
         String payment_id = txtPaymentId.getText();

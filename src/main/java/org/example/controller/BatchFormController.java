@@ -13,8 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.BatchBO;
-import org.example.bo.custom.Impl.BatchBOImpl;
 import org.example.entity.Batch;
 import org.example.view.tdm.BatchTM;
 
@@ -56,7 +56,7 @@ public class BatchFormController {
     @FXML
     private TableView<BatchTM> tblBatch;
 
-    BatchBO batchBO = new BatchBOImpl();
+    BatchBO batchBO = (BatchBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Batch);
 
     private ObservableList<BatchTM> batchTMObservableList = FXCollections.observableArrayList();
 

@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditPaymentBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditPaymentBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class EditPaymentForm {
     @FXML
     private TextField txtUserID;
 
-    EditPaymentBO editPaymentBO = new EditPaymentBOImpl();
+    EditPaymentBO editPaymentBO = (EditPaymentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Payment);
     @FXML
     void btnEditOnAction(ActionEvent event) {
         String payment_id = txtPaymentId.getText();

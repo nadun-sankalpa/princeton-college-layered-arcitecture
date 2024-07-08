@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.EditLecturerBO;
-import org.example.bo.custom.Impl.Edit_Impl.EditLecturerBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class EditLecturerForm {
     @FXML
     private TextField txtNicNo;
 
-    EditLecturerBO editLecturerBO = new EditLecturerBOImpl();
+    EditLecturerBO editLecturerBO = (EditLecturerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Edit_Lecture);
 
     @FXML
     void btnEditOnAction(ActionEvent event) {

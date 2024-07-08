@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.bo.custom.Impl.PaymentBOImpl;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.PaymentBO;
 import org.example.entity.Payment;
 import org.example.view.tdm.PaymentTM;
@@ -56,7 +56,7 @@ public class PaymentFormController {
 
     private List<PaymentTM> paymentList = new ArrayList<PaymentTM>();
 
-    PaymentBO paymentBO = new PaymentBOImpl();
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Payment);
 
     public void initialize() throws SQLException, ClassNotFoundException {
 

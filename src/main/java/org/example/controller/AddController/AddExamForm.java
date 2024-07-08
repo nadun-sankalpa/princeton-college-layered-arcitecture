@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddExamBO;
-import org.example.bo.custom.Impl.AddExamBOImpl;
 import org.example.entity.Exams;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class AddExamForm {
     @FXML
     private TextField txtTime;
 
-    AddExamBO addExamBO = new AddExamBOImpl();
+    AddExamBO addExamBO = (AddExamBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Exam);
 
     @FXML
     void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

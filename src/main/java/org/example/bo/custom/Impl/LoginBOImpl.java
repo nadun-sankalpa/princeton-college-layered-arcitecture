@@ -11,7 +11,7 @@ public class LoginBOImpl implements LoginBO {
     UserDAO userDAO = new UserDAOImpl();
 
     public User checkCredential(String userId, String password) throws SQLException, ClassNotFoundException {
-        return UserDAOImpl.checkCredential(userId, password);
+        return userDAO.checkCredential(userId, password);
     }
 
 }

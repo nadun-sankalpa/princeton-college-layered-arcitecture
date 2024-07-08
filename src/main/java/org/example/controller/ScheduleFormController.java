@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.bo.custom.Impl.ScheduleBOImpl;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.ScheduleBO;
 import org.example.entity.Schedule;
 import org.example.view.tdm.ScheduleTM;
@@ -52,7 +52,7 @@ public class ScheduleFormController {
 
     private List<ScheduleTM> scheduleList = new ArrayList<ScheduleTM>();
 
-    ScheduleBO scheduleBO = new ScheduleBOImpl();
+    ScheduleBO scheduleBO = (ScheduleBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Schedule);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();

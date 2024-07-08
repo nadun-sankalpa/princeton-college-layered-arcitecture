@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddCoursesBO;
-import org.example.bo.custom.Impl.AddCoursesBOImpl;
 import org.example.entity.Courses;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class AddCourseForm {
     @FXML
     private TextField txtMainLecturer;
 
-    AddCoursesBO addCoursesBO = new AddCoursesBOImpl();
+    AddCoursesBO addCoursesBO = (AddCoursesBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Courses);
     @FXML
     void txtCourseFeeReleasedOnAction(KeyEvent event) {
         Pattern CourseFeePattern = Pattern.compile("^(0|[1-9]\\d{0,6}|10000000)$");

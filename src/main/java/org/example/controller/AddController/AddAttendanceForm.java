@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.AddAttendanceBO;
-import org.example.bo.custom.Impl.AddAttendanceBOImpl;
 import org.example.entity.Attendance;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class AddAttendanceForm {
     @FXML
     private TextField txtUserId;
 
-    AddAttendanceBO addAttendanceBO = new AddAttendanceBOImpl();
+    AddAttendanceBO addAttendanceBO = (AddAttendanceBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Add_Attendance);
 
     @FXML
     void btnAddOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO {
-    public static User checkCredential(String userId, String password) throws SQLException, ClassNotFoundException {
+    public  User checkCredential(String userId, String password) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM user WHERE user_id = ? AND password = ?", userId, password);
         if (rst.next()) { // Ensure the cursor is moved to the first row
             return new User(rst.getString("user_id"),

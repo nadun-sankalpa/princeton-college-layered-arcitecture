@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.example.bo.custom.Impl.LoginBOImpl;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.LoginBO;
 import org.example.entity.User;
 
@@ -35,7 +35,7 @@ public class LoginFormController {
     @FXML
     private AnchorPane rootNode;
 
-    LoginBO loginBO = new LoginBOImpl();
+    LoginBO loginBO = (LoginBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Login);
 
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         String userId = txtUserId.getText();

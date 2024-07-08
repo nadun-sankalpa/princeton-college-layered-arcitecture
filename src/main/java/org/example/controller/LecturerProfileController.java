@@ -14,7 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.bo.custom.Impl.LecturerBOImpl;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.LecturerBO;
 import org.example.entity.Lecturer;
 import org.example.view.tdm.LecturerTM;
@@ -56,7 +56,7 @@ public class LecturerProfileController {
 
     private List<LecturerTM> lecturerList = new ArrayList<LecturerTM>();
 
-    LecturerBO lecturerBO = new LecturerBOImpl();
+    LecturerBO lecturerBO = (LecturerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Lecturer);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();

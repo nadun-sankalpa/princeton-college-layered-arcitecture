@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.bo.BOFactory;
 import org.example.bo.custom.DashboardBO;
-import org.example.bo.custom.Impl.DashboardIBOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,12 +34,7 @@ public class DashboardFormController {
     @FXML
     private AnchorPane rootNode;
 
-    DashboardBO dashboardBO = new DashboardIBOImpl();
-
-
-
-
-
+    DashboardBO dashboardBO = (DashboardBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.Dashboard);
 
     public void initialize() {
 
