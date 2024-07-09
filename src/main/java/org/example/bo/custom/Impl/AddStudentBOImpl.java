@@ -45,4 +45,7 @@ public class AddStudentBOImpl implements AddStudentBO {
 
 
     }
+    public  String generateNewId() throws SQLException, ClassNotFoundException {
+        return paymentDAO.generateNewId();
+    }
 }

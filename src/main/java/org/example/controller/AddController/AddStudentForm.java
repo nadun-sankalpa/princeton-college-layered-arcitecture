@@ -4,13 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.AddStudentBO;
-import org.example.dao.custom.Impl.PaymentDAOImpl;
 import org.example.entity.Payment;
 import org.example.entity.Student;
 
@@ -157,7 +157,7 @@ public class AddStudentForm {
             String initial_payment = txtInitialPayment.getText();
             String course_id = txtCourseId.getText();
             String date = String.valueOf(LocalDate.now());
-            String PaymentId = PaymentDAOImpl.getnextPaymentId();
+            String PaymentId = addStudentBO.generateNewId();
 
             Pattern adressPattern = Pattern.compile("^([A-z0-9]|[-/,.@+]|\\\\s){4,}$");
             Pattern phonePattern = Pattern.compile("^([+]94{1,3}|[0])([1-9]{2})([0-9]){7}$");
@@ -170,12 +170,17 @@ public class AddStudentForm {
 
             if (isValidInput(adressPattern, phonePattern, CourseIdPattern, InitialPaymentPattern, NamePattern, NicNoPattern, StudentIdPattern, IDPattern)) {
 
-                Student student = new Student(student_id, name, address, cno, nic_no, user_id);
+                Student student = new Student(student_id, name, cno, address, nic_no, user_id);
 
                 Payment payment = new Payment(PaymentId, initial_payment, date, student_id, user_id, course_id);
 
 
                 boolean isSaved = addStudentBO.studentRegistration(student, payment);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Student saved!").show();
+                }else {
+                    new Alert(Alert.AlertType.ERROR, "Something happened!").show();
+                }
 
             }
 

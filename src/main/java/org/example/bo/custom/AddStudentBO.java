@@ -8,4 +8,5 @@ import java.sql.SQLException;
 
 public interface AddStudentBO extends SuperBO {
     public  boolean studentRegistration(Student student, Payment payment) throws SQLException, ClassNotFoundException;
+    public  String generateNewId() throws SQLException, ClassNotFoundException;
 }

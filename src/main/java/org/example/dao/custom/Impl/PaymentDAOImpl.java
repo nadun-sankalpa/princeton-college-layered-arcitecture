@@ -27,16 +27,7 @@ public class PaymentDAOImpl implements PaymentDAO {
         return pstm.executeUpdate() > 0;
     }
 
-    public static String getnextPaymentId() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT payment_id FROM payment ORDER BY payment_id DESC LIMIT 1";
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet rst = pstm.executeQuery();
-        if (rst.next()) {
-            return rst.getString(1);
-        }
-        return null;
-    }
+
 
     public ArrayList<Payment> getAll() throws SQLException, ClassNotFoundException {
         ArrayList<Payment> allPayments = new ArrayList<>();
@@ -76,13 +67,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     public  String generateNewId() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT payment_id FROM payment ORDER BY payment_id DESC LIMIT 1");
+        int id=1;
         if (rst.next()) {
-            int id = Integer.parseInt(rst.getString("payment_id"));
+             id = Integer.parseInt(rst.getString("payment_id"));
             id++;
-            return rst.getString(1).split("-")[1];
+
         }
 
-        return "P-001";
+        return String.valueOf(id);
     }
     public  XYChart.Series IncomeChart(XYChart.Series chart) {
         String sql = "SELECT date , SUM(amount) FROM payment GROUP BY date ORDER BY TIMESTAMP(date)";
